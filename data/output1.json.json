@@ -1,0 +1,1374 @@
+{
+	"results": [
+		{
+			"created_at": "Sun Sep 15 13:07:00 +0000 2019",
+			"id": 1173221680157622300,
+			"id_str": "1173221680157622274",
+			"text": "Clarification -\n\nI’m a klutz.\n\nWho likes snacks. \n\nSometimes at midnight. \n\n🤷🏻‍♀️",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 2,
+			"reply_count": 72,
+			"retweet_count": 49,
+			"favorite_count": 1945,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Sun Sep 15 04:56:26 +0000 2019",
+			"id": 1173098226469109800,
+			"id_str": "1173098226469109761",
+			"text": "@sohamrk_ My heart ♥️♥️♥️♥️♥️",
+			"display_text_range": [
+				10,
+				29
+			],
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": 1172868613880963000,
+			"in_reply_to_status_id_str": "1172868613880963072",
+			"in_reply_to_user_id": 1073533485078462500,
+			"in_reply_to_user_id_str": "1073533485078462464",
+			"in_reply_to_screen_name": "sohamrk_",
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 3,
+			"reply_count": 5,
+			"retweet_count": 8,
+			"favorite_count": 30,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [
+					{
+						"screen_name": "sohamrk_",
+						"name": "soham ☀️",
+						"id": 1073533485078462500,
+						"id_str": "1073533485078462464",
+						"indices": [
+							0,
+							9
+						]
+					}
+				],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Sat Sep 14 13:36:27 +0000 2019",
+			"id": 1172866704915013600,
+			"id_str": "1172866704915013632",
+			"text": "@basuanurag @priyankachopra #RanbirKapoor #Barfi  ♥️ https://t.co/ahUQonenTD",
+			"display_text_range": [
+				0,
+				52
+			],
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": 118201804,
+			"in_reply_to_user_id_str": "118201804",
+			"in_reply_to_screen_name": "basuanurag",
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 6,
+			"reply_count": 12,
+			"retweet_count": 99,
+			"favorite_count": 269,
+			"entities": {
+				"hashtags": [
+					{
+						"text": "RanbirKapoor",
+						"indices": [
+							28,
+							41
+						]
+					},
+					{
+						"text": "Barfi",
+						"indices": [
+							42,
+							48
+						]
+					}
+				],
+				"urls": [],
+				"user_mentions": [
+					{
+						"screen_name": "basuanurag",
+						"name": "anurag basu",
+						"id": 118201804,
+						"id_str": "118201804",
+						"indices": [
+							0,
+							11
+						]
+					},
+					{
+						"screen_name": "priyankachopra",
+						"name": "PRIYANKA",
+						"id": 18681139,
+						"id_str": "18681139",
+						"indices": [
+							12,
+							27
+						]
+					}
+				],
+				"symbols": [],
+				"media": [
+					{
+						"id": 1172866687638655000,
+						"id_str": "1172866687638654976",
+						"indices": [
+							53,
+							76
+						],
+						"media_url": "http://pbs.twimg.com/media/EEbcCc2XUAACXcg.jpg",
+						"media_url_https": "https://pbs.twimg.com/media/EEbcCc2XUAACXcg.jpg",
+						"url": "https://t.co/ahUQonenTD",
+						"display_url": "pic.twitter.com/ahUQonenTD",
+						"expanded_url": "https://twitter.com/Ileana_Official/status/1172866704915013632/photo/1",
+						"type": "photo",
+						"sizes": {
+							"thumb": {
+								"w": 150,
+								"h": 150,
+								"resize": "crop"
+							},
+							"large": {
+								"w": 600,
+								"h": 800,
+								"resize": "fit"
+							},
+							"medium": {
+								"w": 600,
+								"h": 800,
+								"resize": "fit"
+							},
+							"small": {
+								"w": 510,
+								"h": 680,
+								"resize": "fit"
+							}
+						}
+					}
+				]
+			},
+			"extended_entities": {
+				"media": [
+					{
+						"id": 1172866687638655000,
+						"id_str": "1172866687638654976",
+						"indices": [
+							53,
+							76
+						],
+						"media_url": "http://pbs.twimg.com/media/EEbcCc2XUAACXcg.jpg",
+						"media_url_https": "https://pbs.twimg.com/media/EEbcCc2XUAACXcg.jpg",
+						"url": "https://t.co/ahUQonenTD",
+						"display_url": "pic.twitter.com/ahUQonenTD",
+						"expanded_url": "https://twitter.com/Ileana_Official/status/1172866704915013632/photo/1",
+						"type": "photo",
+						"sizes": {
+							"thumb": {
+								"w": 150,
+								"h": 150,
+								"resize": "crop"
+							},
+							"large": {
+								"w": 600,
+								"h": 800,
+								"resize": "fit"
+							},
+							"medium": {
+								"w": 600,
+								"h": 800,
+								"resize": "fit"
+							},
+							"small": {
+								"w": 510,
+								"h": 680,
+								"resize": "fit"
+							}
+						}
+					}
+				]
+			},
+			"favorited": false,
+			"retweeted": false,
+			"possibly_sensitive": true,
+			"filter_level": "low",
+			"lang": "und",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Sat Sep 14 13:34:03 +0000 2019",
+			"id": 1172866099916017700,
+			"id_str": "1172866099916017664",
+			"text": "Barfi ♥️\n#7years",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 23,
+			"reply_count": 119,
+			"retweet_count": 208,
+			"favorite_count": 3169,
+			"entities": {
+				"hashtags": [
+					{
+						"text": "7years",
+						"indices": [
+							9,
+							16
+						]
+					}
+				],
+				"urls": [],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "is",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Sat Sep 14 04:23:20 +0000 2019",
+			"id": 1172727505226092500,
+			"id_str": "1172727505226092544",
+			"text": "Shit. \n\nI think I make midnight snack trips to the fridge 😳\n\nI’m a sleepwalking snacker. \n\nOy vey. 🤦🏻‍♀️",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 3,
+			"reply_count": 65,
+			"retweet_count": 63,
+			"favorite_count": 2952,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Sat Sep 14 04:22:08 +0000 2019",
+			"id": 1172727205064917000,
+			"id_str": "1172727205064916995",
+			"text": "I’m almost entirely convinced that I sleep walk.....\nAlmost. \nMaybe.\nProbably. \n-\nThere’s no other way to explain h… https://t.co/PRusB0CXO4",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": true,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"extended_tweet": {
+				"full_text": "I’m almost entirely convinced that I sleep walk.....\nAlmost. \nMaybe.\nProbably. \n-\nThere’s no other way to explain how I wake up with mysterious bumps and bruises on my legs 🤷🏻‍♀️",
+				"display_text_range": [
+					0,
+					178
+				],
+				"entities": {
+					"hashtags": [],
+					"urls": [],
+					"user_mentions": [],
+					"symbols": []
+				}
+			},
+			"quote_count": 11,
+			"reply_count": 128,
+			"retweet_count": 74,
+			"favorite_count": 2811,
+			"entities": {
+				"hashtags": [],
+				"urls": [
+					{
+						"url": "https://t.co/PRusB0CXO4",
+						"expanded_url": "https://twitter.com/i/web/status/1172727205064916995",
+						"display_url": "twitter.com/i/web/status/1…",
+						"indices": [
+							117,
+							140
+						]
+					}
+				],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Fri Sep 13 05:44:03 +0000 2019",
+			"id": 1172385432966795300,
+			"id_str": "1172385432966795270",
+			"text": "Note to self- \nDo not eat dark chocolate whilst wearing a white dress. \n🤦🏻‍♀️",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 6,
+			"reply_count": 88,
+			"retweet_count": 67,
+			"favorite_count": 2380,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Mon Sep 09 10:21:09 +0000 2019",
+			"id": 1171005613075128300,
+			"id_str": "1171005613075128320",
+			"text": "@Amalvijay77 🙏🏼",
+			"display_text_range": [
+				13,
+				15
+			],
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": 1171004348135903200,
+			"in_reply_to_status_id_str": "1171004348135903236",
+			"in_reply_to_user_id": 834973487542329300,
+			"in_reply_to_user_id_str": "834973487542329346",
+			"in_reply_to_screen_name": "Amalvijay77",
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 0,
+			"reply_count": 1,
+			"retweet_count": 0,
+			"favorite_count": 10,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [
+					{
+						"screen_name": "Amalvijay77",
+						"name": "Amal Vijay",
+						"id": 834973487542329300,
+						"id_str": "834973487542329346",
+						"indices": [
+							0,
+							12
+						]
+					}
+				],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "und",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Mon Sep 09 10:19:17 +0000 2019",
+			"id": 1171005144432963600,
+			"id_str": "1171005144432963585",
+			"text": "@swaroopchavan15 I say that wayyyy too often...and probably no where near as smooth as Joey",
+			"display_text_range": [
+				17,
+				91
+			],
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": 1171004651237331000,
+			"in_reply_to_status_id_str": "1171004651237330946",
+			"in_reply_to_user_id": 2841467882,
+			"in_reply_to_user_id_str": "2841467882",
+			"in_reply_to_screen_name": "swaroopchavan15",
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 0,
+			"reply_count": 0,
+			"retweet_count": 1,
+			"favorite_count": 17,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [
+					{
+						"screen_name": "swaroopchavan15",
+						"name": "Swaroop Chavan",
+						"id": 2841467882,
+						"id_str": "2841467882",
+						"indices": [
+							0,
+							16
+						]
+					}
+				],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Mon Sep 09 10:18:40 +0000 2019",
+			"id": 1171004990497755100,
+			"id_str": "1171004990497755137",
+			"text": "@renukaVyavahare Hahaha depends...as long as there are enough chicken nuggets for everyone,  I’m good",
+			"display_text_range": [
+				17,
+				101
+			],
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": 1171004768468127700,
+			"in_reply_to_status_id_str": "1171004768468127744",
+			"in_reply_to_user_id": 52357444,
+			"in_reply_to_user_id_str": "52357444",
+			"in_reply_to_screen_name": "renukaVyavahare",
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 0,
+			"reply_count": 1,
+			"retweet_count": 1,
+			"favorite_count": 10,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [
+					{
+						"screen_name": "renukaVyavahare",
+						"name": "Renuka Vyavahare",
+						"id": 52357444,
+						"id_str": "52357444",
+						"indices": [
+							0,
+							16
+						]
+					}
+				],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Mon Sep 09 10:15:13 +0000 2019",
+			"id": 1171004122008445000,
+			"id_str": "1171004122008444928",
+			"text": "I think I’m Joey in a woman’s body. https://t.co/0vXpvyFK6P",
+			"display_text_range": [
+				0,
+				35
+			],
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 5,
+			"reply_count": 57,
+			"retweet_count": 39,
+			"favorite_count": 889,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [],
+				"symbols": [],
+				"media": [
+					{
+						"id": 1171004112114028500,
+						"id_str": "1171004112114028544",
+						"indices": [
+							36,
+							59
+						],
+						"media_url": "http://pbs.twimg.com/tweet_video_thumb/EEA-CSUUEAAEQ9S.jpg",
+						"media_url_https": "https://pbs.twimg.com/tweet_video_thumb/EEA-CSUUEAAEQ9S.jpg",
+						"url": "https://t.co/0vXpvyFK6P",
+						"display_url": "pic.twitter.com/0vXpvyFK6P",
+						"expanded_url": "https://twitter.com/Ileana_Official/status/1171004122008444928/photo/1",
+						"type": "photo",
+						"sizes": {
+							"small": {
+								"w": 294,
+								"h": 228,
+								"resize": "fit"
+							},
+							"thumb": {
+								"w": 150,
+								"h": 150,
+								"resize": "crop"
+							},
+							"large": {
+								"w": 294,
+								"h": 228,
+								"resize": "fit"
+							},
+							"medium": {
+								"w": 294,
+								"h": 228,
+								"resize": "fit"
+							}
+						}
+					}
+				]
+			},
+			"extended_entities": {
+				"media": [
+					{
+						"id": 1171004112114028500,
+						"id_str": "1171004112114028544",
+						"indices": [
+							36,
+							59
+						],
+						"media_url": "http://pbs.twimg.com/tweet_video_thumb/EEA-CSUUEAAEQ9S.jpg",
+						"media_url_https": "https://pbs.twimg.com/tweet_video_thumb/EEA-CSUUEAAEQ9S.jpg",
+						"url": "https://t.co/0vXpvyFK6P",
+						"display_url": "pic.twitter.com/0vXpvyFK6P",
+						"expanded_url": "https://twitter.com/Ileana_Official/status/1171004122008444928/photo/1",
+						"type": "animated_gif",
+						"video_info": {
+							"aspect_ratio": [
+								49,
+								38
+							],
+							"variants": [
+								{
+									"bitrate": 0,
+									"content_type": "video/mp4",
+									"url": "https://video.twimg.com/tweet_video/EEA-CSUUEAAEQ9S.mp4"
+								}
+							]
+						},
+						"sizes": {
+							"small": {
+								"w": 294,
+								"h": 228,
+								"resize": "fit"
+							},
+							"thumb": {
+								"w": 150,
+								"h": 150,
+								"resize": "crop"
+							},
+							"large": {
+								"w": 294,
+								"h": 228,
+								"resize": "fit"
+							},
+							"medium": {
+								"w": 294,
+								"h": 228,
+								"resize": "fit"
+							}
+						}
+					}
+				]
+			},
+			"favorited": false,
+			"retweeted": false,
+			"possibly_sensitive": true,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Mon Sep 09 05:13:42 +0000 2019",
+			"id": 1170928241508380700,
+			"id_str": "1170928241508380674",
+			"text": "You know how in Kung Fu Panda, Master Shifu is constantly going “inner peace...inner peace...inner peace..”\n- well… https://t.co/pq6v9mpz1h",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": true,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"extended_tweet": {
+				"full_text": "You know how in Kung Fu Panda, Master Shifu is constantly going “inner peace...inner peace...inner peace..”\n- well me after Pilates is “inner thighs....inner thighs...inner thighs..”\n\n#ithurtstowalk #soreaf #pilates",
+				"display_text_range": [
+					0,
+					215
+				],
+				"entities": {
+					"hashtags": [
+						{
+							"text": "ithurtstowalk",
+							"indices": [
+								184,
+								198
+							]
+						},
+						{
+							"text": "soreaf",
+							"indices": [
+								199,
+								206
+							]
+						},
+						{
+							"text": "pilates",
+							"indices": [
+								207,
+								215
+							]
+						}
+					],
+					"urls": [],
+					"user_mentions": [],
+					"symbols": []
+				}
+			},
+			"quote_count": 2,
+			"reply_count": 36,
+			"retweet_count": 50,
+			"favorite_count": 1684,
+			"entities": {
+				"hashtags": [],
+				"urls": [
+					{
+						"url": "https://t.co/pq6v9mpz1h",
+						"expanded_url": "https://twitter.com/i/web/status/1170928241508380674",
+						"display_url": "twitter.com/i/web/status/1…",
+						"indices": [
+							116,
+							139
+						]
+					}
+				],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		},
+		{
+			"created_at": "Sat Sep 07 05:40:03 +0000 2019",
+			"id": 1170210099362717700,
+			"id_str": "1170210099362717696",
+			"text": "Just posted a photo on Instagram and couldn’t help but look at my toes. \n.\n.\n.\nToes are weird.",
+			"source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+			"truncated": false,
+			"in_reply_to_status_id": null,
+			"in_reply_to_status_id_str": null,
+			"in_reply_to_user_id": null,
+			"in_reply_to_user_id_str": null,
+			"in_reply_to_screen_name": null,
+			"user": {
+				"id": 2177710981,
+				"id_str": "2177710981",
+				"name": "Ileana D'Cruz",
+				"screen_name": "Ileana_Official",
+				"location": null,
+				"url": "http://Instagram.com/Ileana_Official",
+				"description": null,
+				"translator_type": "none",
+				"protected": false,
+				"verified": true,
+				"followers_count": 2816914,
+				"friends_count": 21,
+				"listed_count": 942,
+				"favourites_count": 2285,
+				"statuses_count": 3196,
+				"created_at": "Wed Nov 06 09:12:59 +0000 2013",
+				"utc_offset": null,
+				"time_zone": null,
+				"geo_enabled": true,
+				"lang": null,
+				"contributors_enabled": false,
+				"is_translator": false,
+				"profile_background_color": "154345",
+				"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_background_tile": false,
+				"profile_link_color": "07212B",
+				"profile_sidebar_border_color": "000000",
+				"profile_sidebar_fill_color": "DDEEF6",
+				"profile_text_color": "333333",
+				"profile_use_background_image": true,
+				"profile_image_url": "http://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_image_url_https": "https://pbs.twimg.com/profile_images/1171082543434616832/wcdKjyjj_normal.jpg",
+				"profile_banner_url": "https://pbs.twimg.com/profile_banners/2177710981/1568042813",
+				"default_profile": false,
+				"default_profile_image": false,
+				"following": null,
+				"follow_request_sent": null,
+				"notifications": null
+			},
+			"geo": null,
+			"coordinates": null,
+			"place": null,
+			"contributors": null,
+			"is_quote_status": false,
+			"quote_count": 4,
+			"reply_count": 47,
+			"retweet_count": 45,
+			"favorite_count": 1486,
+			"entities": {
+				"hashtags": [],
+				"urls": [],
+				"user_mentions": [],
+				"symbols": []
+			},
+			"favorited": false,
+			"retweeted": false,
+			"filter_level": "low",
+			"lang": "en",
+			"matching_rules": [
+				{
+					"tag": null
+				}
+			]
+		}
+	],
+	"requestParameters": {
+		"maxResults": 100,
+		"fromDate": "201908210000",
+		"toDate": "201909201156"
+	}
+}
