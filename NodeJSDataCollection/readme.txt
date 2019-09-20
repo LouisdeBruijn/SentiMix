@@ -1,0 +1,2 @@
+TO INSTALL THE PACKAGES DO
+npm install
