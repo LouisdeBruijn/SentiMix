@@ -1,6 +1,6 @@
 import os 
 
-dt_path = "./train_conll_spanglish.txt"
+dt_path = "./hinglish_trial.txt"
 class NGram:
     word = ""
     lang = ""
@@ -24,9 +24,14 @@ def read_data(path):
                 labels.append(l[len(l)-1])
             else:
                 w = line.strip().split()
+
+                if len(w) < 2:
+                    continue
+
                 gram = NGram()
                 gram.word = w[0]
                 gram.lang = w[1]
+
                 #only assigning the actual word for now.
                 sentence.append(gram.word)
         else:
@@ -38,4 +43,4 @@ def read_data(path):
 
 
 X,Y = read_data(dt_path)
-print(Y)
+print(X)
