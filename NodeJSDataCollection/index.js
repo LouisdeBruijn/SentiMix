@@ -31,7 +31,7 @@ function search(url, query, fileCount) {
 		} else {
 			console.log("success")
 			var jsn = JSON.stringify(body);
-			var filename = "output" + fileCount + ".json";
+			var filename = "output" + fileCount;
 			write(filename, jsn);
 		}
 	})
