@@ -5,6 +5,7 @@ from sklearn.pipeline import Pipeline
 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.metrics import confusion_matrix
@@ -52,10 +53,7 @@ def read_data(path):
 
     return docs, labels
 
-def identity(x):
-    return x
-
-def test(dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold = 5):
+def get_data(dataset_path, testdata_path = None, split = 0.5, combine=False):
     X,Y = read_data(dataset_path)
     split_point = int(split * len(X))
     
@@ -69,19 +67,49 @@ def test(dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold
         Xtrain = X
         Ytrain = Y
         Xtest, Ytest = read_data(testdata_path)
-        if use_cv:
+        if combine:
             Xtrain = X + Xtest
             Ytrain = Y + Ytest
 
+    return Xtrain, Ytrain, Xtest, Ytest
+
+def identity(x):
+    return x
+
+def test(dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold = 5):
+    
+    Xtrain, Ytrain, Xtest, Ytest = get_data(dataset_path, testdata_path, split, use_cv)
+
     vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
     clfs = []
-    clfs.append(Pipeline([('vec', vec), ('cls', MultinomialNB())]))
-    clfs.append(Pipeline([('vec', vec), ('cls', KNeighborsClassifier())]))
-    clfs.append(Pipeline([('vec', vec), ('cls', DecisionTreeClassifier())]))
+    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
+    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
+    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
+    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
 
-    if use_cv:
-        for clf in clfs:
-            score = cross_val_score(clf, Xtrain, Ytrain, cv=n_fold)
-            print(f"{clf}:{score}")
-    else:
-        return
+    for clf in clfs:
+        if use_cv:
+            score = cross_val_score(clf[0], Xtrain, Ytrain, cv=n_fold)
+            print(f"{clf[1]}:{score}")
+        else:
+            clf[0].fit(Xtrain, Ytrain)
+            predict = clf[0].predict(Xtest)
+            
+            print(clf[1])
+            print(classification_report(Ytest, predict))
+            print("\n")
+
+
+
+def train(algo, Xtrain, Ytrain):
+    vec = TfidfVectorizer(preprocessor=identity,tokenizer=identity)
+    classifier = Pipeline([('vec', vec), ('cls', algo)])
+    classifier.fit(Xtrain, Ytrain)
+    return classifier
+
+
+
+
+def plot_svm_accuracy():
+    clist = []
+    ac = []
