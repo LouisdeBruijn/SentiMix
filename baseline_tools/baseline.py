@@ -18,16 +18,11 @@ import nltk
 import pandas as pd
 import time
 
-import operator
-from collections import Counter, defaultdict
-
 #read the data from codalab
 def read_data(path):
     docs = []
     labels = []
-    
     file = open(path, 'r')
-
     start = True
     sentence = []
     for line in file:
@@ -50,10 +45,10 @@ def read_data(path):
             start = True
             docs.append(sentence)
             continue
-
     return docs, labels
 
 def get_data(dataset_path, testdata_path = None, split = 0.5, combine=False):
+    '''Automatically output Xtrain Ytrain Xtest and Ytest'''
     X,Y = read_data(dataset_path)
     split_point = int(split * len(X))
     
@@ -77,10 +72,9 @@ def identity(x):
     return x
 
 def test(dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold = 5):
-    
+    '''Test all baseline algorithms'''
     Xtrain, Ytrain, Xtest, Ytest = get_data(dataset_path, testdata_path, split, use_cv)
 
-    vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
     clfs = []
     clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
     clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
@@ -98,18 +92,61 @@ def test(dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold
             print(clf[1])
             print(classification_report(Ytest, predict))
             print("\n")
+    
 
-
+def test_one(algorithm, dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold = 5):
+    '''Test a specific algorithm with custom parameters'''
+    Xtrain, Ytrain, Xtest, Ytest = get_data(dataset_path, testdata_path, split, use_cv)
+    clf = train(algorithm, Xtrain, Ytrain)
+    if use_cv:
+        score = cross_val_score(clf, Xtrain, Ytrain, cv=n_fold)
+        print(score)
+    else:
+        predict = clf.predict(Xtest)
+        print(classification_report(Ytest, predict))
+        print("\n")
 
 def train(algo, Xtrain, Ytrain):
+    '''Fit a model and return it'''
     vec = TfidfVectorizer(preprocessor=identity,tokenizer=identity)
     classifier = Pipeline([('vec', vec), ('cls', algo)])
     classifier.fit(Xtrain, Ytrain)
     return classifier
 
-
-
-
-def plot_svm_accuracy():
-    clist = []
+def plot_svm_accuracy(datapath):
+    '''Output a graph of the accuracy of SVM under different c settings'''
     ac = []
+    X, Y, XT, YT = get_data(datapath)
+    test_range = 20
+    for c in range(1,test_range + 1):
+        clf = train(LinearSVC(C=c),X,Y)
+        g = clf.predict(XT)
+        ac.append(accuracy_score(YT, g))
+        print(f"{c/test_range * 100}% complete")
+    
+    plt.plot(ac, label="Accuracy")
+
+    plt.title('LinearSVC')
+    plt.ylabel('score')
+    plt.xlabel('C')
+    plt.legend()
+    plt.show()
+
+def plot_nb_accuracy(datapath):
+    '''Output a graph of the accuracy of Naive Bayes under different alpha settings'''
+    ac = []
+    X, Y, XT, YT = get_data(datapath)
+    test_range = 100
+    for c in range(1,test_range + 1):
+        clf = train(MultinomialNB(alpha=c/100),X,Y)
+        g = clf.predict(XT)
+        ac.append(accuracy_score(YT, g))
+        print(f"{c/test_range * 100}% complete")
+    
+    plt.plot(ac, label="Accuracy")
+
+    plt.title('Naive bayes')
+    plt.ylabel('score')
+    plt.xlabel('alpha/100')
+    plt.legend()
+    plt.show()
