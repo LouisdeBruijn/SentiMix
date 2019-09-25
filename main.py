@@ -1,7 +1,7 @@
 import os 
-import baseline_tools.baseline as bs
+import baseline_tools.baseline as bt
 from sklearn.svm import LinearSVC
 
 dt_path = "train_conll_hinglish.txt"
 
-bs.test(dt_path)
+bt.test(dt_path)
