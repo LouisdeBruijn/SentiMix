@@ -6,6 +6,7 @@
 
 
 from collections import Counter, defaultdict
+import sys
 
 
 def open_file(file_path):
@@ -13,16 +14,19 @@ def open_file(file_path):
 
     # extract the tweets from the .txt files and put in a dictionary
     tweets = defaultdict(list)
-    with open('../Sentimix/spanglish_trial.txt', 'r') as spanglish_trial:
+    with open(file_path, 'r') as spanglish_trial:
         for line in spanglish_trial:
             line = line.strip().split('\t')
 
             if line[0] == 'meta':
-                idx = line[1]
-                sentiment = line[2]
+                if len(line) == 3:
+                    idx = line[1]
+                    sentiment = line[2]
+                else:
+                    print('sentiment missing')
+                    pass
             elif '' not in line:
                 tweets[(idx, sentiment)].append((line[0], line[1]))
-
     return tweets
 
 
@@ -73,9 +77,12 @@ def extract_distribution(tweets):
 def main():
 
     file_path = '../Sentimix/spanglish_trial.txt'
-    tweets = open_file(file_path)
+    tweets = open_file(sys.argv[1])
 
     counts, lists = extract_distribution(tweets)
+
+    print(lists)
+    exit()
 
     for k, value in counts.items():
         print(k)
