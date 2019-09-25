@@ -77,9 +77,9 @@ def test(dataset_path, testdata_path = None, split = 0.5, use_cv = False, n_fold
 
     clfs = []
     clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
-    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
-    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
-    clfs.append((train(MultinomialNB(),Xtrain, Ytrain),"Naive bayes"))
+    clfs.append((train(LinearSVC(),Xtrain, Ytrain),"Linear SVC"))
+    clfs.append((train(DecisionTreeClassifier(),Xtrain, Ytrain),"Decision Tree"))
+    clfs.append((train(KNeighborsClassifier(k=10),Xtrain, Ytrain),"KNN"))
 
     for clf in clfs:
         if use_cv:
