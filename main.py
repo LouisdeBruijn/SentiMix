@@ -7,5 +7,5 @@ from sklearn.svm import LinearSVC
 
 dt_path = "./data_files/train_conll_hinglish.txt"
 
-data = data_tools.Data(dt_path)
+data = data_tools.Data(dt_path, shuffle=True)
 baseline_tools.test(data)

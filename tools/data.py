@@ -1,8 +1,24 @@
+import random
 
 class Data:
-    def __init__(self, train_set_path, test_set_path=None, split=0.5, combine=False):
+
+    train = ""
+    test = ""
+
+    def __init__(self, train_set_path, test_set_path=None, split=0.5, combine=False, shuffle=False):
+        """
+        Creates a data object that contains the xy training and testing data.
+        Parameters:\n
+        train_set_path: The path of the training data (required)\n
+        test_set_path:  The path of the testing data (if datasets are seperated)\n
+        split: if no test_set is provided, split a portion of the data for training and another for testing. (default:0.5)\n
+        combine: combines the data sets. (default False)\n
+        shuffle: shuffle the datasets for different training outcomes.\n
+        """
         self.x_train, self.y_train, self.x_test, self.y_test = self.__get_data(
-            train_set_path, test_set_path, split, combine)
+            train_set_path, test_set_path, split, combine, shuffle)
+        self.train = train_set_path
+        self.test = test_set_path
 
     # This output data into 4 seperate vars so that you don't need to get them by doing things like data.x_trian.
     def output_data(self):
@@ -41,13 +57,25 @@ class Data:
                 continue
         return docs, labels
 
-    def __get_data(self, dataset_path, testdata_path=None, split=0.5, combine=False):
+    def __get_data(self, dataset_path, testdata_path=None, split=0.5, combine=False, shuffle=False):
         """
         Automatically output Xtrain Ytrain Xtest and Ytest from the data extracted from read_data()
         """
         X, Y = self.__read_data(
             dataset_path)  # This outputs documents and labels of the training data
         split_point = int(split * len(X))
+        
+        data = []
+        if shuffle:
+            for i in range(len(X)):
+                data.append((X[i],Y[i]))
+            random.shuffle(data)
+            X = []
+            Y = []
+            for d in data:
+                X.append(d[0])
+                Y.append(d[1])
+                pass
 
         if testdata_path == None:
             Xtrain = X[:split_point]
