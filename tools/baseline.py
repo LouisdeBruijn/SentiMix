@@ -73,7 +73,7 @@ def plot_svm_accuracy(data):
     X, Y, XT, YT = data.output_data()
     test_range = 20
     for c in range(1, test_range + 1):
-        clf = train(LinearSVC(C=c), X, Y)
+        clf = train(LinearSVC(C=c), data)
         g = clf.predict(XT)
         ac.append(accuracy_score(YT, g))
         print(f"{c/test_range * 100}% complete")
@@ -93,7 +93,7 @@ def plot_nb_accuracy(data):
     X, Y, XT, YT = data.output_data()
     test_range = 100
     for c in range(1, test_range + 1):
-        clf = train(MultinomialNB(alpha=c/100), X, Y)
+        clf = train(MultinomialNB(alpha=c/100), data)
         g = clf.predict(XT)
         ac.append(accuracy_score(YT, g))
         print(f"{c/test_range * 100}% complete")
