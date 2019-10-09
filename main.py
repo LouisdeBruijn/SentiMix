@@ -5,14 +5,12 @@ import tools.baseline as baseline_tools
 import numpy as np
 
 from sklearn.svm import LinearSVC
+from sklearn.neighbors import KNeighborsClassifier
 
-dt_path = "./data_files/train_conll_hinglish.txt"
+dt_path = "./data_files/spanglish_trial.txt"
+dt_embeddings = "./data_files/embeddings.json"
 
-# data = data_tools.Data(dt_path, shuffle=True)
-# baseline_tools.test(data)
+data = data_tools.Data(dt_embeddings, dt_path, shuffle=True, split=0.7)
+baseline_tools.test_one(KNeighborsClassifier(),data)
 # baseline_tools.plot_svm_accuracy(data)
-
-layer_size = [2,3,5,2]
-bias = [np.zeros((s,1)) for s in layer_size[1:]]
-for b in bias:
-	print(b)
+# vec = baseline_tools.word_embedding_vectorizor(['hello','world'], dt_embeddings)

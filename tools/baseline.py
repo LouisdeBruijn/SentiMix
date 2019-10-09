@@ -14,9 +14,41 @@ from sklearn.model_selection import cross_val_score
 
 from matplotlib import pyplot as plt
 
+import json
 import nltk
 import pandas as pd
 import time
+import numpy as np
+
+class MeanEmbeddingVectorizer(object):
+    def __init__(self, embeddings):
+        self.embeddings = embeddings
+
+    def fit(self, X, y):
+        return self
+
+    def transform(self, X):
+        vec = []
+        for tokens in X:
+            v = word_embedding_vectorizor(tokens, self.embeddings)
+            vec.append(v)
+                
+
+        return vec
+
+
+def word_embedding_vectorizor(doc, embeddings):
+            embeddings = json.load(open(embeddings, 'r'))
+            
+            vecs = []
+            for token in doc:
+                try:
+                    vecs.append(embeddings[token.lower()])
+                except:
+                    vecs.append(embeddings['UNK'])
+
+            vecs = np.mean(vecs, axis=0)
+            return vecs
 
 
 def identity(x):
@@ -49,7 +81,7 @@ def test(data, use_cv=False, n_fold=5):
 def test_one(algorithm, data, use_cv=False, n_fold=5):
     '''Test a specific algorithm with custom parameters'''
     Xtrain, Ytrain, Xtest, Ytest = data.output_data()
-    clf = train(algorithm, Xtrain, Ytrain)
+    clf = train(algorithm, data)
     if use_cv:
         score = cross_val_score(clf, Xtrain, Ytrain, cv=n_fold)
         print(score)
@@ -59,9 +91,12 @@ def test_one(algorithm, data, use_cv=False, n_fold=5):
         print("\n")
 
 
-def train(algo, data):
+def train(algo, data, vec=None):
     '''Fit a model and return it'''
-    vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
+    if vec == None:
+        # vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
+        vec = MeanEmbeddingVectorizer(data.embeddings)
+        
     classifier = Pipeline([('vec', vec), ('cls', algo)])
     classifier.fit(data.x_train, data.y_train)
     return classifier

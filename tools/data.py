@@ -5,7 +5,7 @@ class Data:
     train = ""
     test = ""
 
-    def __init__(self, train_set_path, test_set_path=None, split=0.5, combine=False, shuffle=False):
+    def __init__(self, embedding_path, train_set_path, test_set_path=None, split=0.5, combine=False, shuffle=False):
         """
         Creates a data object that contains the xy training and testing data.
         Parameters:\n
@@ -19,6 +19,7 @@ class Data:
             train_set_path, test_set_path, split, combine, shuffle)
         self.train = train_set_path
         self.test = test_set_path
+        self.embeddings = embedding_path
 
     # This output data into 4 seperate vars so that you don't need to get them by doing things like data.x_trian.
     def output_data(self):
