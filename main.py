@@ -14,3 +14,4 @@ data = data_tools.Data(dt_embeddings, dt_path, shuffle=True, split=0.7)
 baseline_tools.test_one(KNeighborsClassifier(),data)
 # baseline_tools.plot_svm_accuracy(data)
 # vec = baseline_tools.word_embedding_vectorizor(['hello','world'], dt_embeddings)
+
