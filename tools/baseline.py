@@ -22,24 +22,22 @@ import numpy as np
 
 class MeanEmbeddingVectorizer(object):
     def __init__(self, embeddings):
-        self.embeddings = embeddings
+        self.embeddings = json.load(open(embeddings, 'r'))
 
     def fit(self, X, y):
         return self
 
     def transform(self, X):
+        
         vec = []
         for tokens in X:
             v = word_embedding_vectorizor(tokens, self.embeddings)
             vec.append(v)
-                
-
+            
         return vec
 
 
-def word_embedding_vectorizor(doc, embeddings):
-            embeddings = json.load(open(embeddings, 'r'))
-            
+def word_embedding_vectorizor(doc, embeddings):        
             vecs = []
             for token in doc:
                 try:

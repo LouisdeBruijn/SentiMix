@@ -2,8 +2,10 @@ import gc
 import sys
 import os
 import re
+import gensim
 from nltk import RegexpTokenizer, TweetTokenizer
 from emoji import UNICODE_EMOJI
+
 
 class Data:
 	
@@ -87,13 +89,32 @@ def create_emoji_data(data):
 						emojis.append([token, "negative"])
 					else:
 						emojis.append([token, "neutral"])
-
 		
 		file.writelines([" ".join(w) + "\n" for w in emojis])
 
+def load_emoji_data():
+	path = "emoji_setiment.txt"
+	with open(path, "r") as file:
+		for row in file:
+			print(row)
+		pass
+
+def explore_embeddings(data, embeddings):
+
+	unknown_words = []
+	for doc in data.documents:
+		for token in doc:
+			try:
+				word = embeddings[token]
+			except KeyError:
+				unknown_words.append(token)	
+
+	print(unknown_words)
+	print(f"There are a total of {len(unknown_words)} unkown words in the embeddings.")
+
 if __name__ == "__main__":
 	gc.enable()
-	path = "data/train_conll_hinglish.txt"
+	path = "data_files/train_conll_hinglish.txt"
 	os.system("clear")
 	
 	# Loading the data 
@@ -102,7 +123,15 @@ if __name__ == "__main__":
 	# Retokenize the data with nltk tweet tokenizer
 	data.clean()
 
-	create_emoji_data(data)
+	# Load the embeddings
+	embedding_path = "data_files/wiki.en.align.vec"
+
+	print("Loading embeddings...")
+	embeddings = gensim.models.KeyedVectors.load_word2vec_format(embedding_path)
+
+	explore_embeddings(data, embeddings)
+
+	# create_emoji_data(data)
 
 	# print(data.documents[:100])
 	# Masking emojis
