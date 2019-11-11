@@ -2,7 +2,7 @@ import gc
 import sys
 import os
 import re
-import gensim
+from gensim.models import KeyedVectors
 from nltk import RegexpTokenizer, TweetTokenizer
 from emoji import UNICODE_EMOJI
 
@@ -100,21 +100,33 @@ def load_emoji_data():
 		pass
 
 def explore_embeddings(data, embeddings):
+	if not isinstance(embeddings, list):
+		embeddings = list(embeddings)
 
 	unknown_words = []
 	for doc in data.documents:
 		for token in doc:
-			try:
-				word = embeddings[token]
-			except KeyError:
-				unknown_words.append(token)	
+			hasEmbedings = False
+			for emb in embeddings:
+				try:
+					word = emb[token.lower()]
+					hasEmbedings = True
+					break
+				except KeyError:
+					continue
+			
+			if not hasEmbedings:
+				unknown_words.append(token)
+	
+	return unknown_words
+					
 
 	print(unknown_words)
 	print(f"There are a total of {len(unknown_words)} unkown words in the embeddings.")
 
 if __name__ == "__main__":
 	gc.enable()
-	path = "data_files/train_conll_hinglish.txt"
+	path = "data_files/train_conll_spanglish.txt"
 	os.system("clear")
 	
 	# Loading the data 
@@ -124,12 +136,15 @@ if __name__ == "__main__":
 	data.clean()
 
 	# Load the embeddings
-	embedding_path = "data_files/wiki.en.align.vec"
-
+	embedding_path_en = "data_files/wiki.en.align.vec"
+	embedding_path_es = "data_files/wiki.es.align.vec"
 	print("Loading embeddings...")
-	embeddings = gensim.models.KeyedVectors.load_word2vec_format(embedding_path)
+	embeddings = [KeyedVectors.load_word2vec_format(embedding_path_en), 
+				  KeyedVectors.load_word2vec_format(embedding_path_es)]
 
-	explore_embeddings(data, embeddings)
+	unknown_words = explore_embeddings(data, embeddings)
+	print(unknown_words)
+	print(f"There are a total of {len(unknown_words)} unknown words.")
 
 	# create_emoji_data(data)
 
