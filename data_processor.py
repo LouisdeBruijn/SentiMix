@@ -115,7 +115,7 @@ def explore_embeddings(data, embeddings):
 				except KeyError:
 					continue
 			
-			if not hasEmbedings:
+			if not hasEmbedings and token not in unknown_words:
 				unknown_words.append(token)
 	
 	return unknown_words
