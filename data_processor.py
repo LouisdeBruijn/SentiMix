@@ -6,7 +6,7 @@ from nltk import RegexpTokenizer, TweetTokenizer
 from emoji import UNICODE_EMOJI
 
 class Data:
-	
+
 	path = ""
 	labels = []
 	documents = []
@@ -29,7 +29,7 @@ class Data:
 					if len(s) >= 3:
 						continue
 					sentence.append(s[0])
-		
+
 		self.documents = docs
 		print_done()
 
@@ -46,7 +46,7 @@ class Data:
 			doc = tokenizer.tokenize(doc)
 
 			docs.append(doc)
-			
+
 
 		self.documents = docs
 		print_done()
@@ -78,7 +78,7 @@ def create_emoji_data(data):
 					dic = [w[0] for w in emojis]
 					if token in dic:
 						continue
-					
+
 					print(token)
 					i = input("""Enter 'p' for pos, 'n" for 'neg' and any for 'neutral'""")
 					if i == 'p':
@@ -88,15 +88,15 @@ def create_emoji_data(data):
 					else:
 						emojis.append([token, "neutral"])
 
-		
+
 		file.writelines([" ".join(w) + "\n" for w in emojis])
 
 if __name__ == "__main__":
 	gc.enable()
-	path = "data/train_conll_hinglish.txt"
+	path = "data_files/train_conll_hinglish.txt"
 	os.system("clear")
-	
-	# Loading the data 
+
+	# Loading the data
 	data = Data(path)
 
 	# Retokenize the data with nltk tweet tokenizer
@@ -106,6 +106,3 @@ if __name__ == "__main__":
 
 	# print(data.documents[:100])
 	# Masking emojis
-
-
-
