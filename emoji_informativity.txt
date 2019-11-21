@@ -1,3 +1,4 @@
+train_conll_spanglish
 emoji|chosen label|nr of occurences in tweets|label distribution
 😂|positive|869|positive:532 neutral:242 negative:95 
 ❤|positive|404|neutral:79 positive:317 negative:8 

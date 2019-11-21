@@ -52,7 +52,8 @@ def main():
         # print(sorted_emoji)
         # print(len(sorted_emoji))
 
-        with open('eomji_informativity.txt', 'a') as out_file:
+        with open('emoji_informativity.txt', 'a') as out_file:
+            out_file.write(file + '\n')
             out_file.write('emoji|chosen label|nr of occurences in tweets|label distribution' + '\n')
 
             # convert counts to percentages
