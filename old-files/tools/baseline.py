@@ -20,9 +20,13 @@ import pandas as pd
 import time
 import numpy as np
 
+from gensim.models import KeyedVectors
+
 class MeanEmbeddingVectorizer(object):
-    def __init__(self, embeddings):
-        self.embeddings = json.load(open(embeddings, 'r'))
+    def __init__(self, embedding_paths):
+        self.embeddings = []
+        for paths in embedding_paths:
+            self.embeddings.append(KeyedVectors.load_word2vec_format(paths))
 
     def fit(self, X, y):
         return self
@@ -38,12 +42,18 @@ class MeanEmbeddingVectorizer(object):
 
 
 def word_embedding_vectorizor(doc, embeddings):        
+            if not isinstance(embeddings, list):
+                embeddings = list(embeddings)
+
             vecs = []
-            for token in doc:
-                try:
-                    vecs.append(embeddings[token.lower()])
-                except:
-                    vecs.append(embeddings['UNK'])
+
+            for emb in embeddings:
+                for token in doc:
+                    try:
+                        vecs.append(emb[token.lower()])
+                        break
+                    except:
+                        pass
 
             vecs = np.mean(vecs, axis=0)
             return vecs
