@@ -109,3 +109,4 @@ venv.bak/
 #node_module
 node_modules/
 data_files
+.__pycache__

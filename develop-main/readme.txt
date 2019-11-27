@@ -4,6 +4,12 @@ data/ "Anything that has to do with data(preprocessing, loading, etc) will be in
 
 models/ "Anything that has to with the model will be in this folder."
 
+analysis/ "Anything that does analysis of the data, such as frequency distributions"
+
+dist/ "Results of the models/analyses"
+
+baseline/ "Folder where the baseline is"
+
 main.py
 
 the main.py is the main program that will take inputs, arguments and combining all the classes together.
