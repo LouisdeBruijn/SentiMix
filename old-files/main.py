@@ -7,8 +7,8 @@ import numpy as np
 from sklearn.svm import LinearSVC, SVC
 from sklearn.neighbors import KNeighborsClassifier
 
-dt_path = "data_files/train_conll_hinglish.txt"
-dt_embeddings = ["data_files/wiki.en.align.vec", "data_files/wiki.es.align.vec"]
+dt_path = "../data_files/train_conll_spanglish.txt"
+dt_embeddings = ["../data_files/wiki.en.align.vec", "../data_files/wiki.es.align.vec"]
 
 data = data_tools.Data(dt_embeddings, dt_path, shuffle=True, split=0.7)
 

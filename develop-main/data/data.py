@@ -1,5 +1,5 @@
 class Data:
-    def __init__(self, path=None):
+    def __init__(self, path: str = None):
         # properties of this class
         self.documents = []
         self.labels = []
@@ -36,11 +36,10 @@ class Data:
         return docs, sentiment, langs
 
 class Preprocessor():
-    def __init__(self):
-        pass
     
     @staticmethod
-    def process():
+    def process(data: Data):
+        
         print("hello")
         pass
 
