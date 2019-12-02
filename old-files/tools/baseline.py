@@ -27,7 +27,7 @@ class MeanEmbeddingVectorizer(object):
         self.embeddings = []
         for paths in embedding_paths:
             print("Loading " + paths)
-            self.embeddings.append(KeyedVectors.load_word2vec_format(paths))
+            self.embeddings.append(KeyedVectors.load_word2vec_format(paths, limit=10000))
         print("Loading finished")
 
     def fit(self, X, y):
@@ -39,7 +39,7 @@ class MeanEmbeddingVectorizer(object):
         for tokens in X:
             v = word_embedding_vectorizor(tokens, self.embeddings)
             vec.append(v)
-            
+
         return vec
 
 
@@ -50,14 +50,21 @@ def word_embedding_vectorizor(doc, embeddings):
     vecs = []
 
     for token in doc:
+        novec = False
         for emb in embeddings:
             try:
                 vecs.append(emb[token.lower()])
+                novec = False
                 break
             except:
+                novec = True
                 continue
-
+        if novec:
+            vecs.append(emb["."])
+    
+    vecs = np.array(vecs)
     vecs = np.mean(vecs, axis=0)
+
     return vecs
 
 
