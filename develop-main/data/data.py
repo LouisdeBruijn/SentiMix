@@ -11,7 +11,6 @@ class Data:
                 path)
 
         self.vectorised = []
-        self.Y = []
 
     def __load_data(self, path):
         print("loading data...")
@@ -99,6 +98,38 @@ class Preprocessor():
 
         return data
 
+
+    @staticmethod
+    def split_data(data: Data, split=0.8):
+        X = data.documents
+        Y = data.labels
+        Z = data.lang_tags
+
+        import numpy
+        split = numpy.clip(split, 0, 1)
+
+        split_point = int(len(X) * split)
+
+        Xtrain = X[:split_point]
+        Ytrain = Y[:split_point]
+        Ztrain = Z[:split_point]
+
+        Xtest = X[split_point:]
+        Ytest = Y[split_point:]
+        Ztest = Z[split_point:]
+
+        train = Data()
+        train.documents = Xtrain
+        train.labels = Ytrain
+        train.lang_tags = Ztrain
+
+        test = Data()
+        test.documents = Xtest
+        test.labels = Ytest
+        test.lang_tags = Ztest
+
+        return train, test
+
     @staticmethod
     def normalize(data: Data) -> Data:
         # Do we need this?
@@ -112,6 +143,9 @@ if __name__ == "__main__":
     # Example to turn emojis to words
     data = Preprocessor.emoji_to_word(data)
     # print(data.documents)
+
+    train_data, test_data = Preprocessor.split_data(data)
+
     exit()
 
 
