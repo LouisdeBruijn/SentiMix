@@ -27,7 +27,7 @@ Steps before finishing:
 1. add worked files: $git add <filename>
 2. commit work: $git commit -m "worked on ..."
 3. push work to your own branch: $git push
-4. change to develop branch: $git branch develop
+4. change to develop branch: $git checkout develop
 5. merge changes from your own branch into the develop branch: $git merge <your_branch_name>
 
 Steps for problems/see which files are changed:
