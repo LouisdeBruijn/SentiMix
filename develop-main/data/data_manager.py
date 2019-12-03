@@ -60,10 +60,9 @@ class Preprocessor():
     """
 
     @staticmethod
-    def load_embeddings(data: Data, embeddings: dict, unkown_vectors: list = None) -> Data:
+    def load_embeddings(data: Data, embeddings: dict, unkown_vectors: list = None, vector_length: int = 300) -> Data:
         import random
         docs = data.documents
-        vector_length = 0
         for i, doc in enumerate(docs):
             vectors = []
             for x, token in enumerate(doc):
@@ -75,7 +74,8 @@ class Preprocessor():
                         # Providing an UNK vector for the embedings.
                         # If there isn't any, a random one will be generated.
                         # It is best to provide one from the embeddings
-                        vec = [random.uniform(-1.0, 1.0) for n in range(vector_length)]
+                        vec = [random.uniform(-1.0, 1.0)
+                               for n in range(vector_length)]
                     else:
                         vec = unkown_vectors
 
@@ -97,7 +97,7 @@ class Preprocessor():
             new_langs = []
             for x, token in enumerate(doc):
                 token = emoji.demojize(token)
-                token = re.sub(r'[^\w\s]','',token)
+                token = re.sub(r'[^\w\s]', '', token)
                 token = token.split("_")
                 for word in token:
                     new_langs.append(langs[i][x])
@@ -111,7 +111,6 @@ class Preprocessor():
         data.lang_tags = langs
 
         return data
-
 
     @staticmethod
     def split_data(data: Data, split=0.8):
@@ -162,7 +161,6 @@ if __name__ == "__main__":
 
     exit()
 
-
     # Example for loading embedings
     from gensim.models import KeyedVectors
 
@@ -179,12 +177,10 @@ if __name__ == "__main__":
         "lang2": es_embs
     }
 
-    # Because Preprocessor is a static class, 
+    # Because Preprocessor is a static class,
     # we do not need to instantiate an object.
     data = Preprocessor.load_embeddings(data, embedding_dict)
 
     # Because Prepocessor takes type Data as argument and returns type Data as value,
     # the process is very straight forward.
     print(data.vectorised[0])
-
-    
