@@ -34,7 +34,7 @@ class MeanEmbeddingVectorizer(object):
         return self
 
     def transform(self, X):
-        
+
         vec = []
         for tokens in X:
             v = word_embedding_vectorizor(tokens, self.embeddings)
@@ -43,7 +43,7 @@ class MeanEmbeddingVectorizer(object):
         return vec
 
 
-def word_embedding_vectorizor(doc, embeddings):        
+def word_embedding_vectorizor(doc, embeddings):
     if not isinstance(embeddings, list):
         embeddings = list(embeddings)
 
@@ -61,7 +61,7 @@ def word_embedding_vectorizor(doc, embeddings):
                 continue
         if novec:
             vecs.append(emb["."])
-    
+
     vecs = np.array(vecs)
     vecs = np.mean(vecs, axis=0)
 
@@ -98,7 +98,7 @@ def test(data, use_cv=False, n_fold=5):
 def test_one(algorithm, data, use_cv=False, n_fold=5):
     '''Test a specific algorithm with custom parameters'''
     Xtrain, Ytrain, Xtest, Ytest = data.output_data()
-    clf = train(algorithm, data)
+    clf, vec, clf_object, vec_object, class_labels, coef = train(algorithm, data)
     if use_cv:
         score = cross_val_score(clf, Xtrain, Ytrain, cv=n_fold)
         print(score)
@@ -106,17 +106,32 @@ def test_one(algorithm, data, use_cv=False, n_fold=5):
         predict = clf.predict(Xtest)
         print(classification_report(Ytest, predict))
         print("\n")
+        print("Most informative features for the three classes:")
+        print_top10(clf_object, vec_object, class_labels)
 
+def print_top10(clf, vectorizer, class_labels):
+    """Prints features with the highest coefficient values, per class"""
+    feature_names = vectorizer.get_feature_names()
+    for i, class_label in enumerate(class_labels):
+        top10 = np.argsort(clf.coef_[i])[-10:]
+        print("%s: %s" % (class_label,
+              " ".join(feature_names[j] for j in top10)))
 
 def train(algo, data, vec=None):
     '''Fit a model and return it'''
     if vec == None:
-        # vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
-        vec = MeanEmbeddingVectorizer(data.embeddings)
-        
+        vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
+        #vec = MeanEmbeddingVectorizer(data.embeddings)
+
     classifier = Pipeline([('vec', vec), ('cls', algo)])
     classifier.fit(data.x_train, data.y_train)
-    return classifier
+
+    cls_object = classifier.named_steps['cls']
+    vec_object = classifier.named_steps['vec']
+    class_labels = ['negative', 'neutral', 'positive']
+    coef = cls_object.coef_
+
+    return classifier, vec, cls_object, vec_object, class_labels, coef
 
 
 def plot_svm_accuracy(data):
