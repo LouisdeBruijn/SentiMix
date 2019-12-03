@@ -148,18 +148,37 @@ class Preprocessor():
         # Do we need this?
         pass
 
+    @staticmethod
+    def remove_stopwords(data: Data, language: str) -> Data:
+        from nltk.corpus import stopwords
+
+        wordlist = set(stopwords.words(language))
+        
+        docs = []
+        langs = []
+        for i, doc in enumerate(data.documents):
+            tokens = []
+            newlangs = []
+            for x, token in enumerate(doc):
+                if token.lower() not in wordlist:
+                    tokens.append(token)
+                    newlangs.append(data.lang_tags[i][x])
+            
+            if len(tokens) == 0:
+                tokens.append("Nani!?")
+                print("Nani?!")
+
+            docs.append(tokens)
+            langs.append(newlangs)
+        
+        data.documents = docs
+        data.lang_tags = langs
+        return data
+
 
 # For debugging purposes
 if __name__ == "__main__":
     data = Data("../../data_files/spanglish_trial.txt")
-
-    # Example to turn emojis to words
-    data = Preprocessor.emoji_to_word(data)
-    # print(data.documents)
-
-    train_data, test_data = Preprocessor.split_data(data)
-
-    exit()
 
     # Example for loading embedings
     from gensim.models import KeyedVectors

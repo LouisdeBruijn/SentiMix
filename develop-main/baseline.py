@@ -7,6 +7,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import *
 
+import numpy as np
+
 class MeanEmbeddingVectorizer(object):
     def __init__(self):
         pass
@@ -46,7 +48,7 @@ def run_baseline_tfidf(traindata:Data, testdata:Data):
     ytrain = traindata.labels
 
     vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer= lambda x: x)
-    classifier = Pipeline([('vec', vec), ('cls', KNeighborsClassifier(50, 'distance'))])
+    classifier = Pipeline([('vec', vec), ('cls', MultinomialNB(alpha=0.5))])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -56,6 +58,17 @@ def run_baseline_tfidf(traindata:Data, testdata:Data):
     cm = confusion_matrix(ytest, predict)
     print_cm(cm, ["negative", "neutral", "positive"])
 
+    cls_object = classifier.named_steps['cls']
+    vec_object = classifier.named_steps['vec']
+    class_labels = ['negative', 'neutral', 'positive']
+    coef = cls_object.coef_
+
+    print()
+    feature_names = vec_object.get_feature_names()
+    for i, class_label in enumerate(class_labels):
+        top10 = np.argsort(cls_object.coef_[i])[-10:]
+        print("%s: %s" % (class_label,
+              " ".join(feature_names[j] for j in top10)))
 
 
 def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=None):
@@ -84,8 +97,11 @@ def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=
 if __name__ == "__main__":
     data = Data("../data_files/train_conll_spanglish.txt")
     data = Preprocessor.emoji_to_word(data)
-    
-    traindata, testdata = Preprocessor.split_data(data, 0.8)
+    data = Preprocessor.remove_stopwords(data, 'english')
+    data = Preprocessor.remove_stopwords(data, 'spanish')
+    data.scramble()
+
+    traindata, testdata = Preprocessor.split_data(data, 0.7)
 
     # from gensim.models import KeyedVectors
 
