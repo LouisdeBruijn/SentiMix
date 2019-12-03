@@ -63,14 +63,40 @@ class Preprocessor():
                         # If there isn't any, a random one will be generated.
                         # It is best to provide one from the embeddings
                         vec = [random.uniform(-1.0, 1.0) for n in range(vector_length)]
-                        pass
                     else:
                         vec = unkown_vectors
 
                 vectors.append(vec)
 
             data.vectorised.append(vectors)
-            
+
+        return data
+
+    @staticmethod
+    def emoji_to_word(data: Data) -> Data:
+        import emoji
+        import re
+
+        docs = data.documents
+        langs = data.lang_tags
+        for i, doc in enumerate(docs):
+            processed = []
+            new_langs = []
+            for x, token in enumerate(doc):
+                token = emoji.demojize(token)
+                token = re.sub(r'[^\w\s]','',token)
+                token = token.split("_")
+                for word in token:
+                    new_langs.append(langs[i][x])
+
+                processed.extend(token)
+
+            docs[i] = processed
+            langs[i] = new_langs
+
+        data.documents = docs
+        data.lang_tags = langs
+
         return data
 
     @staticmethod
@@ -82,6 +108,12 @@ class Preprocessor():
 # For debugging purposes
 if __name__ == "__main__":
     data = Data("../../data_files/spanglish_trial.txt")
+
+    # Example to turn emojis to words
+    data = Preprocessor.emoji_to_word(data)
+    # print(data.documents)
+    exit()
+
 
     # Example for loading embedings
     from gensim.models import KeyedVectors
