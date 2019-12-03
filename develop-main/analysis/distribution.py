@@ -7,7 +7,7 @@ plt.style.use('ggplot')
 
 
 class Data:
-    """Reads data from data files"""
+    """Reads data from trial data files"""
 
     path = ""
     labels = []
@@ -18,7 +18,7 @@ class Data:
         self.__load()
 
     def __load(self):
-        print("loading data...", end="")
+        print("loading data...\n")
         with open(self.path, "r") as file:
             docs = []
             sentence = []
@@ -40,6 +40,29 @@ class Data:
         self.labels = sentiment
 
 
+class NewData:
+    """Reads data from new tweets file"""
+
+    path = ""
+    labels = []
+    documents = []
+
+    def __init__(self, path):
+        self.path = path
+        self.__load()
+
+    def __load(self):
+        print("loading data...\n")
+        with open(self.path, "r") as file:
+            docs = []
+            sentiment = []
+            for tweet in file:
+                docs.append(tweet)
+                sentiment.append('')
+
+        self.documents = docs
+        self.labels = sentiment
+
 
 def most_inf_emojis(data, filename, threshold):
     """Creates a txt file with most informative emojis
@@ -55,10 +78,11 @@ def most_inf_emojis(data, filename, threshold):
 
     emoji_in_doc = 0
     emojis = {}
+    nr_emojis_in_tweet = {}
     new_emoji = defaultdict(list)
     for doc, label in zip(data.documents, data.labels):
+        emojis_present = False
         for token in doc:
-            emojis_present = False
             for char in token:
                 if char in UNICODE_EMOJI:
                     '''this is for finding the labels per emoticon'''
@@ -69,21 +93,13 @@ def most_inf_emojis(data, filename, threshold):
                     # if char is already in dictionary, add +1 to count
                     # if char is not in dictionary, add it with count 1
                     emojis[char] = emojis.get(char, 0)+1
-            if emojis_present:
-                '''distribution of emojis present in tweets'''
-                emoji_in_doc += 1
 
-    ''' for finding the labels per emotion'''
-    # converting the list of labels to counts
-    counted_emoji = {}
-    for char, label in new_emoji.items():
-        cnt = Counter(label)
-        freq = sum(cnt.values())
-        if freq > 1: # we're not considering emojis that only occur once
-            counted_emoji[char] = (freq, cnt)
+        if emojis_present:
+            '''distribution of emojis present in tweets'''
+            emoji_in_doc += 1
 
-    # sorting it
-    sorted_emoji = sorted(counted_emoji.items(), key=lambda elem: elem[1][0], reverse=True)
+    # converting labels to counts and sort it high-low
+    sorted_emoji = conv_labels_counts(new_emoji)
 
     with open('emoji_informativity.txt', 'a') as out_file:
         out_file.write(filename + '\n')
@@ -140,9 +156,6 @@ def descriptive_stats(data, filename, emojis, emoji_in_doc):
 
     # sort emojis according to count
     sorted_emojis = sorted(emojis.items(), key=operator.itemgetter(1), reverse=True)
-    print('')
-    print('Find the emoji distribution below.')
-    print(sorted_emojis)
 
     # top 10 for visualisation
     labels, sizes = zip(*sorted_emojis[:10])
@@ -166,24 +179,145 @@ def descriptive_stats(data, filename, emojis, emoji_in_doc):
     plt.show()
 
 
+def emoji_dic(emoji_informativity):
+    """
+    Returns dictionary key-value pair of emoji-label
+
+    :param str emoji_informativity: path for output emoji informativity file
+
+    :rtype dict
+    :returns: dictionary with emojis as keys and labels as value
+    """
+    with open("../dist/emoji_informativity.txt") as emoji_file:
+        next(emoji_file) # skip filename
+        next(emoji_file) # skip headers
+        emojis = {}
+        for line in emoji_file:
+            line = line.rstrip().split('|')
+            emojis[line[0]] = line[1]
+
+    return emojis
+
+
+def conv_labels_counts(new_emoji):
+    """finds labels per emoticon
+
+    :param dict new_emoji: dictionary with emojis as keys
+    and a list of labels as values
+
+    :rtype tup
+    :return: sorted emojis by count of labels and their frequencys
+    """
+
+    # converting the list of labels to counts
+    counted_emoji = {}
+    for char, label in new_emoji.items():
+        cnt = Counter(label)
+        freq = sum(cnt.values())
+        if freq > 1: # we're not considering emojis that only occur once
+            counted_emoji[char] = (freq, cnt)
+
+    # sorting it highest value first
+    sorted_emoji = sorted(counted_emoji.items(),
+        key=lambda elem: elem[1][0],
+        reverse=True)
+
+    return sorted_emoji
+
+
+def label_new_tweets(new_data, filename, emojis, threshold):
+    """labels newly found tweets based on the most informative emoji labels
+
+    :param class new_data: NewData class with tweets
+    :param str filename: name of the trial data file
+    :param emojis dict: most informative emojis and their labels
+    :param int threshold: threshold in percentage how much 1st and 2nd
+        most found emoji in tweet should be in order to be labelled
+
+    :rtype txt
+    :return: tab-delimited text file with labelled tweets
+    """
+
+    emoji_in_doc = 0
+    for idx, doc in enumerate(new_data.documents):
+        emojis_present = False
+        found_emojis = {}
+
+        for char in doc:
+            if char in UNICODE_EMOJI:
+                emojis_present = True
+
+                if char in emojis.keys():
+                    # char is found in most_informative emojis
+                    label = emojis[char]
+                    found_emojis[label] = found_emojis.get(label, 0)+1
+
+        if emojis_present:
+            '''distribution of emojis present in tweets'''
+            emoji_in_doc += 1
+
+        if found_emojis:
+            '''emojis were found in this tweet'''
+
+            if len(found_emojis) > 1:
+                '''there are multiple labels found for the emojis in one tweet'''
+
+                freq = sum(found_emojis.values())
+                for label, count in found_emojis.items():
+                    # convert counts to percentages
+                    found_emojis[label] = round((count/freq)*100, 2)
+
+                # sorting it highest value first
+                # and keeping only the highest and 2nd highest value
+                sort_temp_label = sorted(found_emojis.items(),
+                    key=operator.itemgetter(1),
+                    reverse=True)[:2]
+
+                # find difference between 1st and 2nd most-used emoji in tweet
+                diff = abs(np.diff([n for _, n in sort_temp_label[:2]]))
+                if diff[0] <= threshold:
+                    continue
+
+                # returning percentages to original counts of the 1st highest label
+                count = int((sort_temp_label[0][1]/100) * freq)
+                label = sort_temp_label[0][0]
+                found_emojis = {}
+                found_emojis[label] = count
+
+            # assign the label to this tweet
+            label = list(found_emojis.keys())[0]
+            new_data.labels[idx] = label
+
+    # write to output txt file
+    with open("../../data_files/2016_spanglish_annotated.tweets", "a") as tweet_output:
+        tweet_output.write("sentiment_label\ttweet_text\n")
+        for doc, label in zip(new_data.documents, new_data.labels):
+            if label:
+                tweet_output.write("{0}\t{1}".format(label, doc))
+
+    # some descriptive statistics
+    print('Emojis occur in {0}% of the documents: {1}'.format( round((emoji_in_doc/len(new_data.documents))*100, 2), emoji_in_doc))
+    tweets_labelled = [sum(1 for x in w if x != '') for w in new_data.labels]
+    print('Tweets that could be labelled: {0}'.format(tweets_labelled))
+
+
 def main():
 
-    with open("../../data_files/2016.tweets") as tweets:
-        for line in tweets:
-            print(line)
-            exit()
+    # TODO: we still need to trim the amount of informative emojis!!
 
+    """Labeling new tweets"""
+    new_tweets_file = "../../data_files/2016.tweets"
+    new_data = NewData(new_tweets_file)
+    file = new_tweets_file.split('/')[-1] # filename
+    emojis = emoji_dic("../dist/emoji_informativity.txt")
+    label_new_tweets(new_data, file, emojis, 20)
 
+    """Creating most informative emojis txt file"""
     # Loading the data
     datafile = "../../data_files/train_conll_spanglish.txt"
-    file = datafile.split('/')[1][:-4] # filename
+    file = datafile.split('/')[-1] # filename
     data = Data(datafile)
-
-    # most_inf_emojis(data, file, 20)
-
-
-
-
+    most_inf_emojis(data, file, 20)
 
 
 if __name__ == '__main__':
