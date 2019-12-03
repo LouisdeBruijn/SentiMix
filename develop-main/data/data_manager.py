@@ -39,6 +39,20 @@ class Data:
 
         return docs, sentiment, langs
 
+    def scramble(self):
+        import random
+        data = []
+        for i in range(len(self.documents)):
+            data.append([self.documents[i], self.labels[i], self.lang_tags[i]])
+        random.shuffle(data)
+        self.documents = []
+        self.labels = []
+        self.lang_tags = []
+        for d in data:
+            self.documents.append(d[0])
+            self.labels.append(d[1])
+            self.lang_tags.append(d[2])
+
 
 class Preprocessor():
     """
