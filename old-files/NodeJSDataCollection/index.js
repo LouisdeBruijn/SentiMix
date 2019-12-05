@@ -1,6 +1,6 @@
 const request = require("request");
 const fs = require('fs');
-const dir = "../data/"
+const dir = ""
 
 //Don't use these too extensively only 250 requests per month
 const tokens = {

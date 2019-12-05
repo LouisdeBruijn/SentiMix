@@ -175,6 +175,26 @@ class Preprocessor():
         data.lang_tags = langs
         return data
 
+    @staticmethod
+    def remove_punctuations(data: Data) -> Data:
+        puctuations = list(',?/.()[];:\'\"')
+        
+        docs = []
+        langs = []
+        for i, doc in enumerate(data.documents):
+            tokens = []
+            newlangs = []
+            for x, token in enumerate(doc):
+                if token not in puctuations:
+                    tokens.append(token)
+                    newlangs.append(data.lang_tags[i][x])
+
+            docs.append(tokens)
+            langs.append(newlangs)
+
+        data.documents = docs
+        data.lang_tags = langs
+        return data
 
 # For debugging purposes
 if __name__ == "__main__":
