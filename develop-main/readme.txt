@@ -25,6 +25,7 @@ Steps for working:
 4. MERGE FROM THE DEVELOP BRANCH: $git merge develop
 5. If there are merge conflicts: $git commit <file_w_merge_conflict> -m "committing file because of merge conflict"
 6. If there are no merge conflicts: go work and code!
+7. PUSH the merge to your own remote branch: $git push
 
 Steps before finishing:
 1. add worked files: $git add <filename>
@@ -35,6 +36,7 @@ Steps before finishing:
 5. merge changes from your own branch into the develop branch: $git merge <your_branch_name>
 6. If there are merge conflicts: $git commit <file_w_merge_conflict> -m "committing file because of merge conflict"
 7. If there are no merge conflicts: go work and code!
+8. PUSH the merge to the remote develop branch: $git push
 
 Steps for problems/see which files are changed:
 $git status (for seeing which files are changed)
