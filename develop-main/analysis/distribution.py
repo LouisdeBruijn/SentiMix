@@ -2,6 +2,7 @@ from emoji import UNICODE_EMOJI
 import operator
 from collections import defaultdict, Counter
 import numpy as np
+import json
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
@@ -288,17 +289,26 @@ def label_new_tweets(new_data, filename, emojis, threshold):
             label = list(found_emojis.keys())[0]
             new_data.labels[idx] = label
 
+    distr = {} # distribution of sentiment labels in newly labelled tweets
     # write to output txt file
     with open("../../data_files/2016_spanglish_annotated.tweets", "a") as tweet_output:
         tweet_output.write("sentiment_label\ttweet_text\n")
         for doc, label in zip(new_data.documents, new_data.labels):
             if label:
                 tweet_output.write("{0}\t{1}".format(label, doc))
+                distr[label] = distr.get(label, 0)+1
 
-    # some descriptive statistics
-    print('Emojis occur in {0}% of the documents: {1}'.format( round((emoji_in_doc/len(new_data.documents))*100, 2), emoji_in_doc))
-    tweets_labelled = [sum(1 for x in w if x != '') for w in new_data.labels]
-    print('Tweets that could be labelled: {0}'.format(tweets_labelled))
+    # some descriptive statistics (also in /dist)
+    emojis_occur = 'Emojis occur in {0}% of the documents: {1}'.format( round((emoji_in_doc/len(new_data.documents))*100, 2), emoji_in_doc)
+    tweets_labelled = len([label for label in new_data.labels if label != ''])
+    labelled = 'Tweets that could be labelled: {0}'.format(tweets_labelled)
+    print(emojis_occur)
+    print(labelled)
+    print(distr)
+    with open("../dist/2016_spanglish_annotated.distr", "w") as out_file:
+        out_file.write(emojis_occur + '\n')
+        out_file.write(labelled + '\n')
+        out_file.write(json.dumps(distr) + '\n')
 
 
 def main():
@@ -312,6 +322,8 @@ def main():
     emojis = emoji_dic("../dist/emoji_informativity.txt")
     label_new_tweets(new_data, file, emojis, 20)
 
+
+    exit()
     """Creating most informative emojis txt file"""
     # Loading the data
     datafile = "../../data_files/train_conll_spanglish.txt"

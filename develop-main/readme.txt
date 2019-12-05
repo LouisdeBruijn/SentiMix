@@ -19,18 +19,25 @@ Code of conduct:
 You can create multiple calsses in one file, it is best to avoid creating too many files but also keep in mind that don't put two unrelated thing in one .py file as it may be confusing for other people.
 
 Steps for working:
-1. BEFORE DOING ANY CODING: make sure you're in your own branch ($git branch <name>): $git merge develop
-2. If there are merge conflicts: $git commit <file_w_merge_conflict> -m "committing file because of merge conflict"
-3. If there are no merge conflicts: go work and code!
+1. BEFORE DOING ANYTHING go to the develop branch: $git checkout develop
+2. PULL THE LATEST VERSION on the develop branch: $git pull develop
+3. MOVE TO YOUR OWN BRANCH: $git checkout <branch_name>
+4. MERGE FROM THE DEVELOP BRANCH: $git merge develop
+5. If there are merge conflicts: $git commit <file_w_merge_conflict> -m "committing file because of merge conflict"
+6. If there are no merge conflicts: go work and code!
 
 Steps before finishing:
 1. add worked files: $git add <filename>
 2. commit work: $git commit -m "worked on ..."
 3. push work to your own branch: $git push
 4. change to develop branch: $git checkout develop
+5. PULL THE NEWEST VERSION ON DEVELOP: $git pull
 5. merge changes from your own branch into the develop branch: $git merge <your_branch_name>
+6. If there are merge conflicts: $git commit <file_w_merge_conflict> -m "committing file because of merge conflict"
+7. If there are no merge conflicts: go work and code!
 
 Steps for problems/see which files are changed:
-$git status 
+$git status (for seeing which files are changed)
+$git branch -r (for seeing all branches)
 
 
