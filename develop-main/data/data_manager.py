@@ -1,5 +1,5 @@
 class Data:
-    def __init__(self, path: str = None):
+    def __init__(self, path: str = None, format="json"):
         # properties of this class
         self.documents = []
         self.labels = []
@@ -17,6 +17,13 @@ class Data:
             docs = []
             sentiment = []
             sentence = []
+            if format == "json":
+                import json
+                data = json.load(file)
+                for d in data:
+                    docs.append(d["tokens"])
+                    sentiment.append(d["label"])
+                return docs, sentiment            
 
             for row in file:
                 if row == "\n":
@@ -31,6 +38,8 @@ class Data:
                     sentence.append(s[0])
 
         return docs, sentiment
+
+
 
     def scramble(self):
         import random
@@ -122,9 +131,9 @@ class Preprocessor():
         return train, test
 
     @staticmethod
-    def normalize(data: Data) -> Data:
-        # Do we need this?
+    def combine_data(dataA: Data, dataB: Data) -> Data:
         pass
+
 
     @staticmethod
     def remove_stopwords(data: Data, language: str) -> Data:
