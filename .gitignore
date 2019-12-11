@@ -109,4 +109,4 @@ venv.bak/
 node_modules/
 data_files
 .__pycache__
-.vscode
+.vscode/
