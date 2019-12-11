@@ -4,6 +4,8 @@ from collections import defaultdict, Counter
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+from nltk.tokenize import TweetTokenizer
+import json
 plt.style.use('ggplot')
 
 
@@ -39,6 +41,28 @@ class Data:
 
         self.documents = docs
         self.labels = sentiment
+
+    def __create_new_txt(self):
+        print("creating new txt file...\n")
+        with open(self.path, "r") as file:
+            docs = []
+            sentence = []
+            sentiment = []
+            for row in file:
+                if row == "\n":
+                    docs.append(sentence)
+                    sentence = []
+                else:
+                    s = str(row).strip().split('\t')
+                    if len(s) >= 3:
+                        if len(s) == 3:
+                            sentiment.append(s[2])
+                        continue
+
+                    sentence.append(s[0])
+
+
+
 
 
 class NewData:
@@ -102,7 +126,7 @@ def most_inf_emojis(data, filename, threshold):
     # converting labels to counts and sort it high-low
     sorted_emoji = conv_labels_counts(new_emoji)
 
-    with open('emoji_informativity.txt', 'a') as out_file:
+    with open('../dist/emoji_informativity.txt', 'a') as out_file:
         out_file.write(filename + '\n')
         out_file.write('emoji|chosen label|nr of occurences in tweets|label distribution' + '\n')
 
@@ -309,6 +333,43 @@ def label_new_tweets(new_data, filename, emojis, threshold):
         out_file.write(emojis_occur + '\n')
         out_file.write(labelled + '\n')
         out_file.write(json.dumps(distr) + '\n')
+
+
+def tokenize_tweets():
+    """
+    Tokenize both conll_spanish and new 2016 annotated tweets and write to JSON file
+    """
+    tknzr = TweetTokenizer()
+
+    # old conll spanglish training data
+    datafile = "../../data_files/train_conll_spanglish.txt"
+    data = Data(datafile)
+    conll_json = []
+    print("Tokenizing conll_spanglish data...\n")
+    for idx, (label, tokens) in enumerate(zip(data.labels, data.documents)):
+        idx += 1
+        tweet = " ".join(tokens)
+        tokenized = tknzr.tokenize(tweet)
+        conll_json.append({'id': idx, 'label': label, 'tokens': tokenized})
+
+    with open("../../data_files/train_conll_spanglish.json", "w") as conll_json_file:
+        json.dump(conll_json, conll_json_file)
+
+    # new 2016 annotated tweets
+    tweets_2016_json = []
+    print("Tokenizing new 2016 annotated tweets data...\n")
+    with open("../../data_files/2016_spanglish_annotated.tweets", "r") as tweets_2016_file:
+        next(tweets_2016_file)
+        for line in tweets_2016_file:
+            idx += 1
+            label, doc = line.rstrip().split('\t')
+            tokenized = tknzr.tokenize(doc)
+            tweets_2016_json.append({'id': idx, 'label': label, 'tokens': tokenized})
+
+    with open("../../data_files/2016_spanglish_annotated.json", "w") as tweets_2016_json_file:
+        json.dump(tweets_2016_json, tweets_2016_json_file)
+
+    print('Tokenization for both old and new data done\n')
 
 
 def main():

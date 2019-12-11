@@ -27,7 +27,6 @@ class MeanEmbeddingVectorizer(object):
 
         return vec
 
-
 def run_baseline_embeddings(traindata:Data, testdata:Data):
     xtrain = traindata.vectorised
     ytrain = traindata.labels
@@ -48,7 +47,7 @@ def run_baseline_tfidf(traindata:Data, testdata:Data):
     ytrain = traindata.labels
 
     vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer= lambda x: x)
-    classifier = Pipeline([('vec', vec), ('cls', MultinomialNB(alpha=0.5))])
+    classifier = Pipeline([('vec', vec), ('cls', KNeighborsClassifier(100, 'distance'))])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -58,17 +57,17 @@ def run_baseline_tfidf(traindata:Data, testdata:Data):
     cm = confusion_matrix(ytest, predict)
     print_cm(cm, ["negative", "neutral", "positive"])
 
-    cls_object = classifier.named_steps['cls']
-    vec_object = classifier.named_steps['vec']
-    class_labels = ['negative', 'neutral', 'positive']
-    coef = cls_object.coef_
+    # cls_object = classifier.named_steps['cls']
+    # vec_object = classifier.named_steps['vec']
+    # class_labels = ['negative', 'neutral', 'positive']
+    # coef = cls_object.coef_
 
-    print()
-    feature_names = vec_object.get_feature_names()
-    for i, class_label in enumerate(class_labels):
-        top10 = np.argsort(cls_object.coef_[i])[-10:]
-        print("%s: %s" % (class_label,
-              " ".join(feature_names[j] for j in top10)))
+    # print()
+    # feature_names = vec_object.get_feature_names()
+    # for i, class_label in enumerate(class_labels):
+    #     top10 = np.argsort(cls_object.coef_[i])[-10:]
+    #     print("%s: %s" % (class_label,
+    #           " ".join(feature_names[j] for j in top10)))
 
 
 def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=None):
@@ -100,8 +99,9 @@ if __name__ == "__main__":
     data = Preprocessor.remove_stopwords(data, 'english')
     data = Preprocessor.remove_stopwords(data, 'spanish')
     data.scramble()
+    data = Preprocessor.remove_punctuations(data)
 
-    traindata, testdata = Preprocessor.split_data(data, 0.7)
+    traindata, testdata = Preprocessor.split_data(data, 0.8)
 
     # from gensim.models import KeyedVectors
 
