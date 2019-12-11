@@ -1,0 +1,223 @@
+train_conll_spanglish.txt
+emoji|chosen label|nr of occurences in tweets|label distribution
+😂|positive|869|positive:532 neutral:242 negative:95 
+❤|positive|404|neutral:79 positive:317 negative:8 
+😍|positive|370|neutral:92 positive:272 negative:6 
+😁|positive|153|positive:103 neutral:42 negative:8 
+👌|positive|142|positive:98 neutral:31 negative:13 
+🔥|positive|140|neutral:36 positive:99 negative:5 
+😱|positive|105|negative:2 neutral:28 positive:75 
+☺|positive|103|neutral:19 positive:80 negative:4 
+👏|positive|91|neutral:24 positive:64 negative:3 
+🎉|positive|91|positive:78 neutral:13 
+😘|positive|89|neutral:16 negative:13 positive:60 
+😝|positive|83|neutral:28 negative:10 positive:45 
+😎|positive|82|positive:54 negative:3 neutral:25 
+🙌|positive|76|neutral:20 positive:51 negative:5 
+💕|positive|74|positive:55 neutral:16 negative:3 
+😊|positive|74|positive:62 neutral:10 negative:2 
+♥|positive|70|neutral:7 positive:61 negative:2 
+🎵|positive|62|neutral:20 positive:41 negative:1 
+💀|positive|61|neutral:20 positive:41 
+😜|positive|60|neutral:19 negative:4 positive:37 
+👍|positive|57|positive:46 negative:2 neutral:9 
+😋|positive|57|neutral:13 positive:41 negative:3 
+✌|positive|54|positive:35 neutral:17 negative:2 
+😏|positive|52|negative:4 positive:33 neutral:15 
+😡|negative|50|negative:42 neutral:5 positive:3 
+💃|positive|49|neutral:11 positive:37 negative:1 
+👗|positive|49|neutral:17 positive:32 
+💋|positive|47|neutral:5 positive:41 negative:1 
+💪|positive|44|neutral:8 positive:33 negative:3 
+💁|positive|42|neutral:13 negative:4 positive:25 
+☀|positive|42|neutral:10 positive:32 
+😉|positive|39|positive:33 neutral:6 
+😳|positive|37|negative:9 neutral:10 positive:18 
+😌|positive|36|neutral:5 positive:24 negative:7 
+💯|positive|35|positive:23 neutral:10 negative:2 
+🍻|positive|34|positive:22 neutral:10 negative:2 
+😈|positive|34|neutral:7 negative:7 positive:20 
+👇|neutral|34|neutral:33 positive:1 
+🙋|positive|33|neutral:9 positive:23 negative:1 
+👠|positive|32|positive:21 neutral:11 
+🌸|positive|31|positive:27 neutral:4 
+😅|positive|30|positive:16 negative:6 neutral:8 
+🎈|positive|28|positive:26 neutral:2 
+😃|positive|27|positive:21 negative:1 neutral:5 
+🙈|positive|27|positive:17 neutral:9 negative:1 
+✨|positive|25|neutral:4 positive:20 negative:1 
+💙|positive|22|positive:16 neutral:3 negative:3 
+🌻|positive|22|positive:19 neutral:3 
+✋|neutral|21|negative:6 neutral:11 positive:4 
+🔫|positive|20|negative:5 positive:11 neutral:4 
+😻|positive|20|positive:18 neutral:2 
+💛|positive|18|positive:11 neutral:7 
+😛|positive|17|neutral:2 positive:12 negative:3 
+🎊|positive|17|positive:16 neutral:1 
+💜|positive|17|neutral:6 positive:11 
+💥|positive|17|negative:1 neutral:4 positive:12 
+😆|positive|16|positive:11 negative:3 neutral:2 
+😴|positive|16|negative:5 positive:9 neutral:2 
+🌙|positive|15|positive:12 neutral:2 negative:1 
+☁|positive|15|positive:13 neutral:2 
+👊|positive|14|negative:3 neutral:3 positive:8 
+🎁|positive|14|positive:11 negative:1 neutral:2 
+🍁|positive|14|positive:12 negative:1 neutral:1 
+😄|positive|13|neutral:3 positive:10 
+💘|positive|13|negative:3 positive:8 neutral:2 
+😹|positive|13|negative:3 positive:7 neutral:3 
+😕|negative|12|negative:8 positive:3 neutral:1 
+💄|positive|12|neutral:4 positive:8 
+🤗|positive|12|positive:12 
+⭐|positive|12|positive:8 neutral:4 
+🌷|positive|12|positive:10 neutral:2 
+🎂|positive|12|positive:11 neutral:1 
+🍺|positive|11|positive:7 neutral:4 
+🍹|positive|11|neutral:2 positive:9 
+💓|positive|11|positive:7 neutral:4 
+🌼|positive|11|positive:10 neutral:1 
+🙂|positive|11|positive:10 neutral:1 
+🙆|positive|11|positive:10 neutral:1 
+💖|positive|11|positive:10 negative:1 
+✈|positive|10|neutral:1 positive:9 
+😠|negative|10|positive:1 negative:9 
+🍃|positive|10|positive:8 neutral:2 
+😟|neutral|9|neutral:5 negative:3 positive:1 
+🎮|positive|9|positive:6 neutral:3 
+💫|positive|9|neutral:3 positive:6 
+💰|neutral|8|positive:3 neutral:5 
+😪|negative|8|negative:7 positive:1 
+😤|negative|8|negative:5 positive:1 neutral:2 
+🔴|positive|8|neutral:1 positive:7 
+🌞|positive|8|positive:5 neutral:3 
+🔝|positive|8|positive:7 neutral:1 
+💨|positive|7|positive:6 negative:1 
+👖|positive|7|neutral:2 positive:5 
+👛|positive|7|neutral:1 positive:6 
+😀|positive|7|positive:7 
+❗|neutral|7|neutral:6 positive:1 
+🎧|positive|6|positive:6 
+😨|positive|6|negative:1 positive:5 
+😗|positive|6|positive:6 
+👿|negative|6|negative:6 
+😚|positive|6|positive:6 
+🐶|negative|6|negative:4 neutral:2 
+👔|positive|6|neutral:2 positive:4 
+🎀|positive|6|positive:5 neutral:1 
+✖|neutral|6|neutral:6 
+👉|positive|6|positive:6 
+🌺|negative|6|negative:4 neutral:2 
+☝|positive|6|neutral:2 positive:4 
+🍀|positive|6|positive:6 
+🙀|positive|6|positive:5 neutral:1 
+☎|positive|6|positive:6 
+👶|positive|6|neutral:1 positive:5 
+💗|positive|6|positive:4 neutral:2 
+🌲|positive|6|positive:6 
+⛄|positive|5|positive:5 
+👋|positive|5|negative:1 positive:4 
+📸|neutral|5|neutral:5 
+👭|positive|5|neutral:1 positive:4 
+👜|positive|5|neutral:1 positive:4 
+🌚|positive|5|neutral:1 positive:4 
+👯|positive|5|positive:5 
+🙍|neutral|5|neutral:4 positive:1 
+❣|positive|5|positive:5 
+💌|positive|5|neutral:1 positive:4 
+👾|positive|5|positive:5 
+👙|positive|5|positive:4 neutral:1 
+☹|negative|4|negative:4 
+✅|neutral|4|neutral:3 positive:1 
+📍|positive|4|neutral:1 positive:3 
+🐥|positive|4|neutral:1 positive:3 
+🐸|negative|4|negative:2 neutral:1 positive:1 
+🦄|positive|4|positive:4 
+👻|positive|4|positive:3 neutral:1 
+🐤|positive|4|positive:3 neutral:1 
+🌟|positive|4|positive:3 neutral:1 
+⚠|neutral|4|neutral:4 
+🍇|positive|4|positive:3 neutral:1 
+🌤|positive|4|positive:4 
+®|positive|4|positive:4 
+🍡|neutral|4|positive:1 neutral:3 
+💎|positive|4|positive:4 
+⛵|neutral|4|neutral:3 positive:1 
+🛍|positive|4|positive:3 neutral:1 
+🖕|negative|4|negative:4 
+🌿|positive|4|positive:4 
+🌵|positive|4|positive:4 
+🍂|positive|4|neutral:1 positive:3 
+👰|positive|4|positive:4 
+🐀|negative|4|negative:4 
+👎|negative|3|negative:3 
+🎋|positive|3|positive:3 
+🙎|negative|3|negative:3 
+😦|neutral|3|neutral:3 
+⚽|positive|3|positive:3 
+🔪|positive|3|positive:3 
+🎥|positive|3|neutral:1 positive:2 
+🍧|positive|3|neutral:1 positive:2 
+🐱|neutral|3|neutral:3 
+🔙|neutral|3|neutral:2 negative:1 
+👚|neutral|3|neutral:2 positive:1 
+🎓|positive|3|positive:3 
+💞|positive|3|positive:3 
+💐|positive|3|positive:3 
+🌎|positive|3|positive:3 
+🏆|positive|3|positive:3 
+🔆|positive|3|neutral:1 positive:2 
+🍦|positive|3|neutral:1 positive:2 
+🍒|positive|3|positive:2 neutral:1 
+😽|positive|3|positive:3 
+🔺|neutral|3|neutral:3 
+🌏|positive|3|positive:3 
+🐰|positive|3|positive:3 
+🍬|neutral|3|neutral:3 
+💍|positive|3|positive:3 
+🌠|positive|3|positive:2 neutral:1 
+😶|positive|3|positive:3 
+⌛|positive|3|positive:3 
+🐝|positive|3|positive:3 
+👐|positive|2|positive:2 
+💴|positive|2|positive:2 
+💳|positive|2|positive:2 
+💸|positive|2|positive:2 
+💊|positive|2|positive:2 
+🏃|negative|2|negative:2 
+🐣|positive|2|positive:2 
+🐳|positive|2|positive:2 
+⚪|positive|2|positive:2 
+🔵|positive|2|positive:2 
+🚌|positive|2|positive:2 
+🎾|positive|2|positive:2 
+📷|positive|2|positive:2 
+🚢|positive|2|positive:2 
+👕|positive|2|positive:2 
+🎃|positive|2|positive:2 
+▶|positive|2|positive:2 
+🐟|neutral|2|neutral:2 
+📢|negative|2|negative:2 
+🎨|positive|2|positive:2 
+🌀|neutral|2|neutral:2 
+🙉|positive|2|positive:2 
+⏰|positive|2|positive:2 
+🔮|neutral|2|neutral:2 
+⚓|positive|2|positive:2 
+📚|neutral|2|neutral:2 
+📨|positive|2|positive:2 
+🍴|positive|2|positive:2 
+⬇|positive|2|positive:2 
+🎼|positive|2|positive:2 
+✳|positive|2|positive:2 
+🌶|positive|2|positive:2 
+🌍|positive|2|positive:2 
+🏊|positive|2|positive:2 
+🐧|positive|2|positive:2 
+🍭|positive|2|positive:2 
+🎩|positive|2|positive:2 
+👫|positive|2|positive:2 
+⛅|positive|2|positive:2 
+✏|positive|2|positive:2 
+🔅|positive|2|positive:2 
+☢|neutral|2|neutral:2 
+🖖|neutral|2|neutral:2 
