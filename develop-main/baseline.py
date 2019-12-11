@@ -47,7 +47,7 @@ def run_baseline_tfidf(traindata:Data, testdata:Data):
     ytrain = traindata.labels
 
     vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer= lambda x: x)
-    classifier = Pipeline([('vec', vec), ('cls', KNeighborsClassifier(100, 'distance'))])
+    classifier = Pipeline([('vec', vec), ('cls', LinearSVC())])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -94,14 +94,24 @@ def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=
         print()
 
 if __name__ == "__main__":
-    data = Data("../data_files/train_conll_spanglish.txt")
-    data = Preprocessor.emoji_to_word(data)
+    
+    data = Data("../data_files/train_conll_spanglish.txt", format="conll")
+
+    data_2016 = Data("../data_files/2016_spanglish_annotated.json", format="json")
+
+    data = Preprocessor.combine_data(data, data_2016)
+
+    data = Preprocessor.balance_data(data)
+
+    # data = Preprocessor.emoji_to_word(data)
+    
     data = Preprocessor.remove_stopwords(data, 'english')
     data = Preprocessor.remove_stopwords(data, 'spanish')
     data.scramble()
-    data = Preprocessor.remove_punctuations(data)
+    
+    # data = Preprocessor.remove_punctuations(data)
 
-    traindata, testdata = Preprocessor.split_data(data, 0.8)
+    traindata, testdata = Preprocessor.split_data(data, 0.7)
 
     # from gensim.models import KeyedVectors
 

@@ -1,33 +1,38 @@
 class Data:
-    def __init__(self, path: str = None):
+    def __init__(self, path: str = None, format="json"):
         # properties of this class
         self.documents = []
         self.labels = []
-        self.lang_tags = []
 
         if path != None:
             # lang_tags has the same shape as documents.
-            self.documents, self.labels, self.lang_tags = self.__load_data(
-                path)
+            self.documents, self.labels = self.__load_data(
+                path, format)
 
         self.vectorised = []
 
-    def __load_data(self, path):
+    def __load_data(self, path, format):
         print("loading data...")
         with open(path, "r") as file:
             docs = []
-            langs = []
             sentiment = []
-
             sentence = []
-            lang = []
+            if format == "json":
+                import json
+                data = json.load(file)
+                for d in data:
+                    if d["label"] == "sentiment_label":
+                        continue
+
+                    docs.append(d["tokens"])
+                    sentiment.append(d["label"])
+
+                return docs, sentiment
 
             for row in file:
                 if row == "\n":
                     docs.append(sentence)
-                    langs.append(lang)
                     sentence = []
-                    lang = []
                 else:
                     s = str(row).strip().split('\t')
                     if len(s) >= 3:
@@ -35,23 +40,22 @@ class Data:
                         continue
 
                     sentence.append(s[0])
-                    lang.append(s[1])
 
-        return docs, sentiment, langs
+        return docs, sentiment
+
+
 
     def scramble(self):
         import random
         data = []
         for i in range(len(self.documents)):
-            data.append([self.documents[i], self.labels[i], self.lang_tags[i]])
+            data.append([self.documents[i], self.labels[i]])
         random.shuffle(data)
         self.documents = []
         self.labels = []
-        self.lang_tags = []
         for d in data:
             self.documents.append(d[0])
             self.labels.append(d[1])
-            self.lang_tags.append(d[2])
 
 
 class Preprocessor():
@@ -60,25 +64,24 @@ class Preprocessor():
     """
 
     @staticmethod
-    def load_embeddings(data: Data, embeddings: dict, unkown_vectors: list = None, vector_length: int = 300) -> Data:
+    def load_embeddings(data: Data, embeddings: list, unkown_vectors: list = None, vector_length: int = 300) -> Data:
         import random
         docs = data.documents
-        for i, doc in enumerate(docs):
+        for doc in docs:
             vectors = []
-            for x, token in enumerate(doc):
-                try:
-                    vec = embeddings[data.lang_tags[i][x]][token]
-                    vector_length = len(vec)
-                except KeyError:
-                    if unkown_vectors == None:
-                        # Providing an UNK vector for the embedings.
-                        # If there isn't any, a random one will be generated.
-                        # It is best to provide one from the embeddings
-                        vec = [random.uniform(-1.0, 1.0)
-                               for n in range(vector_length)]
-                    else:
-                        vec = unkown_vectors
-
+            for token in doc:
+                
+                if unkown_vectors == None:
+                    vec = [random.uniform(-1.0, 1.0) for n in range(vector_length)]
+                else:
+                    vec = unkown_vectors
+                
+                for emb in embeddings:
+                    try:
+                        emb[token]
+                    except KeyError:
+                        continue
+                
                 vectors.append(vec)
 
             data.vectorised.append(vectors)
@@ -91,24 +94,17 @@ class Preprocessor():
         import re
 
         docs = data.documents
-        langs = data.lang_tags
         for i, doc in enumerate(docs):
             processed = []
-            new_langs = []
             for x, token in enumerate(doc):
                 token = emoji.demojize(token)
                 token = re.sub(r'[^\w\s]', '', token)
                 token = token.split("_")
-                for word in token:
-                    new_langs.append(langs[i][x])
-
                 processed.extend(token)
 
             docs[i] = processed
-            langs[i] = new_langs
 
         data.documents = docs
-        data.lang_tags = langs
 
         return data
 
@@ -116,7 +112,6 @@ class Preprocessor():
     def split_data(data: Data, split=0.8):
         X = data.documents
         Y = data.labels
-        Z = data.lang_tags
 
         import numpy
         split = numpy.clip(split, 0, 1)
@@ -125,75 +120,114 @@ class Preprocessor():
 
         Xtrain = X[:split_point]
         Ytrain = Y[:split_point]
-        Ztrain = Z[:split_point]
 
         Xtest = X[split_point:]
         Ytest = Y[split_point:]
-        Ztest = Z[split_point:]
 
         train = Data()
         train.documents = Xtrain
         train.labels = Ytrain
-        train.lang_tags = Ztrain
 
         test = Data()
         test.documents = Xtest
         test.labels = Ytest
-        test.lang_tags = Ztest
 
         return train, test
 
     @staticmethod
-    def normalize(data: Data) -> Data:
-        # Do we need this?
-        pass
+    def combine_data(dataA: Data, dataB: Data) -> Data:
+        for x, doc in enumerate(dataB.documents):
+            dataA.documents.append(doc)
+            dataA.labels.append(dataB.labels[x])
+
+        return dataA
+
+
+    @staticmethod
+    def balance_data(data: Data) -> Data:
+        
+        positive = 0
+        negative = 0
+        neutral = 0
+        
+        for label in data.labels:
+            if label == "positive":
+                positive += 1
+            elif label == "negative":
+                negative += 1
+            elif label == "neutral":
+                neutral += 1
+
+        max_len = min([positive, negative, neutral])
+        
+        data.scramble()
+
+        blanced_data = Data()
+
+        pos_count = 0
+        neg_count = 0
+        neu_count = 0
+
+        for x, doc in enumerate(data.documents):
+            
+            if data.labels[x] == "positive":
+                if pos_count >= max_len:
+                    continue
+                else:
+                    pos_count += 1
+
+            if data.labels[x] == "negative":
+                if neg_count >= max_len:
+                    continue
+                else:
+                    neg_count += 1
+
+            if data.labels[x] == "neutral":
+                if neu_count >= max_len:
+                    continue
+                else:
+                    neu_count += 1    
+
+            blanced_data.documents.append(doc)
+            blanced_data.labels.append(data.labels[x])
+
+        return blanced_data
 
     @staticmethod
     def remove_stopwords(data: Data, language: str) -> Data:
         from nltk.corpus import stopwords
 
         wordlist = set(stopwords.words(language))
-        
+
         docs = []
-        langs = []
         for i, doc in enumerate(data.documents):
             tokens = []
-            newlangs = []
             for x, token in enumerate(doc):
                 if token.lower() not in wordlist:
                     tokens.append(token)
-                    newlangs.append(data.lang_tags[i][x])
-            
+
             if len(tokens) == 0:
                 tokens.append("Nani!?")
                 print("Nani?!")
 
             docs.append(tokens)
-            langs.append(newlangs)
-        
+
         data.documents = docs
-        data.lang_tags = langs
         return data
 
     @staticmethod
     def remove_punctuations(data: Data) -> Data:
         puctuations = list(',?/.()[];:\'\"')
-        
         docs = []
-        langs = []
         for i, doc in enumerate(data.documents):
             tokens = []
-            newlangs = []
             for x, token in enumerate(doc):
                 if token not in puctuations:
                     tokens.append(token)
-                    newlangs.append(data.lang_tags[i][x])
 
             docs.append(tokens)
-            langs.append(newlangs)
 
-        data.documents = docs
-        data.lang_tags = langs
+        data.documents = docs 
         return data
 
 # For debugging purposes
@@ -211,14 +245,11 @@ if __name__ == "__main__":
     es_embs = KeyedVectors.load_word2vec_format(
         "../../data_files/wiki.es.align.vec", limit=10000)
 
-    embedding_dict = {
-        "lang1": en_embs,
-        "lang2": es_embs
-    }
+    embs = [en_embs, es_embs]
 
     # Because Preprocessor is a static class,
     # we do not need to instantiate an object.
-    data = Preprocessor.load_embeddings(data, embedding_dict)
+    data = Preprocessor.load_embeddings(data, embs)
 
     # Because Prepocessor takes type Data as argument and returns type Data as value,
     # the process is very straight forward.
