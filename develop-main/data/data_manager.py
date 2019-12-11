@@ -7,11 +7,11 @@ class Data:
         if path != None:
             # lang_tags has the same shape as documents.
             self.documents, self.labels = self.__load_data(
-                path)
+                path, format)
 
         self.vectorised = []
 
-    def __load_data(self, path):
+    def __load_data(self, path, format):
         print("loading data...")
         with open(path, "r") as file:
             docs = []
@@ -21,9 +21,13 @@ class Data:
                 import json
                 data = json.load(file)
                 for d in data:
+                    if d["label"] == "sentiment_label":
+                        continue
+
                     docs.append(d["tokens"])
                     sentiment.append(d["label"])
-                return docs, sentiment            
+
+                return docs, sentiment
 
             for row in file:
                 if row == "\n":
@@ -132,8 +136,62 @@ class Preprocessor():
 
     @staticmethod
     def combine_data(dataA: Data, dataB: Data) -> Data:
-        pass
+        for x, doc in enumerate(dataB.documents):
+            dataA.documents.append(doc)
+            dataA.labels.append(dataB.labels[x])
 
+        return dataA
+
+
+    @staticmethod
+    def balance_data(data: Data) -> Data:
+        
+        positive = 0
+        negative = 0
+        neutral = 0
+        
+        for label in data.labels:
+            if label == "positive":
+                positive += 1
+            elif label == "negative":
+                negative += 1
+            elif label == "neutral":
+                neutral += 1
+
+        max_len = min([positive, negative, neutral])
+        
+        data.scramble()
+
+        blanced_data = Data()
+
+        pos_count = 0
+        neg_count = 0
+        neu_count = 0
+
+        for x, doc in enumerate(data.documents):
+            
+            if data.labels[x] == "positive":
+                if pos_count >= max_len:
+                    continue
+                else:
+                    pos_count += 1
+
+            if data.labels[x] == "negative":
+                if neg_count >= max_len:
+                    continue
+                else:
+                    neg_count += 1
+
+            if data.labels[x] == "neutral":
+                if neu_count >= max_len:
+                    continue
+                else:
+                    neu_count += 1    
+
+            blanced_data.documents.append(doc)
+            blanced_data.labels.append(data.labels[x])
+
+        return blanced_data
 
     @staticmethod
     def remove_stopwords(data: Data, language: str) -> Data:
