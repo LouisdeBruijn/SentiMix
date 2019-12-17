@@ -146,47 +146,25 @@ class Preprocessor():
     @staticmethod
     def balance_data(data: Data) -> Data:
         
-        positive = 0
-        negative = 0
-        neutral = 0
+        positive = data.labels.count("positive")
+        negative = data.labels.count("negative")
+        neutral = data.labels.count("neutral")
         
-        for label in data.labels:
-            if label == "positive":
-                positive += 1
-            elif label == "negative":
-                negative += 1
-            elif label == "neutral":
-                neutral += 1
-
         max_len = min([positive, negative, neutral])
         
-        data.scramble()
-
         blanced_data = Data()
 
-        pos_count = 0
-        neg_count = 0
-        neu_count = 0
+        count = {}
 
         for x, doc in enumerate(data.documents):
             
-            if data.labels[x] == "positive":
-                if pos_count >= max_len:
-                    continue
+            if data.labels[x] not in count:
+                count[data.labels[x]] = 1
+            else:
+                if count[data.labels[x]] <= max_len:
+                    count[data.labels[x]] += 1
                 else:
-                    pos_count += 1
-
-            if data.labels[x] == "negative":
-                if neg_count >= max_len:
                     continue
-                else:
-                    neg_count += 1
-
-            if data.labels[x] == "neutral":
-                if neu_count >= max_len:
-                    continue
-                else:
-                    neu_count += 1    
 
             blanced_data.documents.append(doc)
             blanced_data.labels.append(data.labels[x])
