@@ -2,6 +2,7 @@ from data.data_manager import Data, Preprocessor
 from sklearn.svm import SVC, LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -43,11 +44,13 @@ def run_baseline_embeddings(traindata:Data, testdata:Data):
     print_cm(cm, ["negative", "neutral", "positive"])
 
 def run_baseline_tfidf(traindata:Data, testdata:Data):
+    print("Running baseline...")
+
     xtrain = traindata.documents
     ytrain = traindata.labels
 
     vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer= lambda x: x)
-    classifier = Pipeline([('vec', vec), ('cls', LinearSVC())])
+    classifier = Pipeline([('vec', vec), ('cls', RandomForestClassifier(n_estimators=1000))])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -56,6 +59,7 @@ def run_baseline_tfidf(traindata:Data, testdata:Data):
     print(classification_report(ytest, predict))
     cm = confusion_matrix(ytest, predict)
     print_cm(cm, ["negative", "neutral", "positive"])
+    return classifier
 
     # cls_object = classifier.named_steps['cls']
     # vec_object = classifier.named_steps['vec']
@@ -93,44 +97,26 @@ def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=
             print(cell, end=" ")
         print()
 
+
+def console(model):
+    while True:
+        sentence = input("Enter: ")
+        if sentence == "EXIT":
+            break
+        sentence = [sentence.split()]
+        print(model.predict(sentence))
+
 if __name__ == "__main__":
     
-    data = Data("../data_files/train_conll_spanglish.txt", format="conll")
+    # data = Data("../data_files/train_conll_spanglish.txt", format="conll")
+    data = Data("../data_files/2016_spanglish_annotated.json", format="json", remove_dup=True)
 
-    data_2016 = Data("../data_files/2016_spanglish_annotated.json", format="json")
-
-    data = Preprocessor.combine_data(data, data_2016)
-
-    data = Preprocessor.balance_data(data)
-
-    # data = Preprocessor.emoji_to_word(data)
+    # data = Preprocessor.combine_data(data, new)
     
-    data = Preprocessor.remove_stopwords(data, 'english')
-    data = Preprocessor.remove_stopwords(data, 'spanish')
+    # data = Preprocessor.balance_data(data)
     data.scramble()
-    
-    # data = Preprocessor.remove_punctuations(data)
 
-    traindata, testdata = Preprocessor.split_data(data, 0.7)
+    traindata, testdata = Preprocessor.split_data(data, 0.8)
 
-    # from gensim.models import KeyedVectors
-
-    # print("loading english embeddings...")
-    # en_embs = KeyedVectors.load_word2vec_format(
-    #     "../data_files/wiki.en.align.vec", limit=50000)
-
-    # print("loading spanish embeddings...")
-    # es_embs = KeyedVectors.load_word2vec_format(
-    #     "../data_files/wiki.es.align.vec", limit=50000)
-
-    # # emb = KeyedVectors.load_word2vec_format("../data_files/GoogleNews-vectors-negative300.bin", binary=True)
-
-    # embedding_dict = {
-    #     "lang1": en_embs,
-    #     "lang2": es_embs
-    # }
-
-    # traindata = Preprocessor.load_embeddings(traindata, embedding_dict)
-    # testdata = Preprocessor.load_embeddings(testdata, embedding_dict)
-
-    run_baseline_tfidf(traindata, testdata)
+    model = run_baseline_tfidf(traindata, testdata)
+    console(model)
