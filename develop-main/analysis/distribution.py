@@ -6,6 +6,7 @@ import json
 import matplotlib.pyplot as plt
 from nltk.tokenize import TweetTokenizer
 import json
+import itertools
 plt.style.use('ggplot')
 
 
@@ -62,9 +63,6 @@ class Data:
                     sentence.append(s[0])
 
 
-
-
-
 class NewData:
     """Reads data from new tweets file"""
 
@@ -89,6 +87,20 @@ class NewData:
         self.labels = sentiment
 
 
+def new_emoji_labels():
+    """
+    Converts old labels to new labels based on most_informative features
+    """
+    new_labels = {}
+    with open('../dist/emoji_labels.txt', 'r') as new_emoji_labels:
+        next(new_emoji_labels)
+        for line in new_emoji_labels:
+            line = line.rstrip().split('|')
+            new_labels[line[0]] = line[1]
+
+    return new_labels
+
+
 def most_inf_emojis(data, filename, threshold):
     """Creates a txt file with most informative emojis
 
@@ -105,12 +117,18 @@ def most_inf_emojis(data, filename, threshold):
     emojis = {}
     nr_emojis_in_tweet = {}
     new_emoji = defaultdict(list)
+
+    # new labels based on most-informative features (Gaetana)
+    new_labels = new_emoji_labels()
+
     for doc, label in zip(data.documents, data.labels):
+        # convert labels to new label
         emojis_present = False
         for token in doc:
             for char in token:
                 if char in UNICODE_EMOJI:
                     '''this is for finding the labels per emoticon'''
+                    # converts old label to new label based on most-inf features
                     new_emoji[char].append(label)
 
                     emojis_present = True
@@ -148,12 +166,17 @@ def most_inf_emojis(data, filename, threshold):
                 if diff[0] <= threshold:
                     continue
 
-            items = [char, labels[0][0], str(tot), tup[1]]
+            # new labels based on most-informative features (Gaetana)
+            new_labels = new_emoji_labels()
+            new_label = new_labels[labels[0][0]]
+
+            items = [char, labels[0][0], new_label, str(tot), tup[1]]
+
             # converting Counter to string
             string = ''
-            for k, v in items[3].items():
+            for k, v in items[4].items():
                 string += k +':' + str(v) + ' '
-            items[3] = string
+            items[4] = string
 
             # write to file
             # print('|'.join(items) + '\n')
@@ -204,11 +227,12 @@ def descriptive_stats(data, filename, emojis, emoji_in_doc):
     plt.show()
 
 
-def emoji_dic(emoji_informativity):
+def emoji_dic(emoji_informativity, new_labels):
     """
     Returns dictionary key-value pair of emoji-label
 
     :param str emoji_informativity: path for output emoji informativity file
+    :param bool new_labels: if True we use new_labels from most inf features
 
     :rtype dict
     :returns: dictionary with emojis as keys and labels as value
@@ -219,7 +243,10 @@ def emoji_dic(emoji_informativity):
         emojis = {}
         for line in emoji_file:
             line = line.rstrip().split('|')
-            emojis[line[0]] = line[1]
+            if new_labels:
+                emojis[line[0]] = line[2]
+            else:
+                emojis[line[0]] = line[1]
 
     return emojis
 
@@ -344,15 +371,18 @@ def tokenize_tweets():
     # old conll spanglish training data
     datafile = "../../data_files/train_conll_spanglish.txt"
     data = Data(datafile)
+
     conll_json = []
     print("Tokenizing conll_spanglish data...\n")
     for idx, (label, tokens) in enumerate(zip(data.labels, data.documents)):
         idx += 1
         tweet = " ".join(tokens)
         tokenized = tknzr.tokenize(tweet)
-        conll_json.append({'id': idx, 'label': label, 'tokens': tokenized})
+        emojis = emoji_dic("../dist/emoji_informativity.txt", True)
+        emoji_conv = convert_emojis_to_labels(tokenized, emojis)
+        conll_json.append({'id': idx, 'label': label, 'tokens': emoji_conv})
 
-    with open("../../data_files/train_conll_spanglish.json", "w") as conll_json_file:
+    with open("../../data_files/conv_train_conll_spanglish.json", "w") as conll_json_file:
         json.dump(conll_json, conll_json_file)
 
     # new 2016 annotated tweets
@@ -364,33 +394,56 @@ def tokenize_tweets():
             idx += 1
             label, doc = line.rstrip().split('\t')
             tokenized = tknzr.tokenize(doc)
+            emojis = emoji_dic("../dist/emoji_informativity.txt", True)
+            emoji_conv = convert_emojis_to_labels(tokenized, emojis)
             tweets_2016_json.append({'id': idx, 'label': label, 'tokens': tokenized})
 
-    with open("../../data_files/2016_spanglish_annotated.json", "w") as tweets_2016_json_file:
+    with open("../../data_files/conv_2016_spanglish_annotated.json", "w") as tweets_2016_json_file:
         json.dump(tweets_2016_json, tweets_2016_json_file)
 
     print('Tokenization for both old and new data done\n')
+
+
+def convert_emojis_to_labels(li_tokens, emojis):
+    """
+    Converts an emoji to the labels from the most informative features (Gaetana)
+
+    :param list li_tokens: tokens that contain the emojis to convert
+    :param dict emojis: dictionary with emojis as keys
+        and labels to convert emojis to as the values
+
+    :rtype: list
+    :return: list w/ tokens and converted emojis
+    """
+    for idx, token in enumerate(li_tokens):
+        if token in UNICODE_EMOJI and token in emojis.keys():
+            new_token = emojis[token]
+            li_tokens[idx] = new_token
+
+    return li_tokens
 
 
 def main():
 
     # TODO: we still need to trim the amount of informative emojis!!
 
+    tokenize_tweets()
+
+    exit()
     """Labeling new tweets"""
     new_tweets_file = "../../data_files/2016.tweets"
     new_data = NewData(new_tweets_file)
     file = new_tweets_file.split('/')[-1] # filename
-    emojis = emoji_dic("../dist/emoji_informativity.txt")
+    emojis = emoji_dic("../dist/emoji_informativity.txt", False)
     label_new_tweets(new_data, file, emojis, 20)
 
-
-    exit()
     """Creating most informative emojis txt file"""
     # Loading the data
     datafile = "../../data_files/train_conll_spanglish.txt"
     file = datafile.split('/')[-1] # filename
     data = Data(datafile)
     most_inf_emojis(data, file, 20)
+
 
 
 if __name__ == '__main__':
