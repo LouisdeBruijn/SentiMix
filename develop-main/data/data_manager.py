@@ -1,5 +1,5 @@
 class Data:
-    def __init__(self, path: str = None, format="json"):
+    def __init__(self, path: str = None, format="json", remove_dup=False):
         # properties of this class
         self.documents = []
         self.labels = []
@@ -7,11 +7,11 @@ class Data:
         if path != None:
             # lang_tags has the same shape as documents.
             self.documents, self.labels = self.__load_data(
-                path, format)
+                path, format, remove_dup)
 
         self.vectorised = []
 
-    def __load_data(self, path, format):
+    def __load_data(self, path, format, remove_dup):
         print("loading data...")
         with open(path, "r") as file:
             docs = []
@@ -24,6 +24,10 @@ class Data:
                     if d["label"] == "sentiment_label":
                         continue
 
+                    if remove_dup:
+                        if d["tokens"] in docs:
+                            continue
+
                     docs.append(d["tokens"])
                     sentiment.append(d["label"])
 
@@ -31,8 +35,14 @@ class Data:
 
             for row in file:
                 if row == "\n":
+                    if remove_dup:
+                        if sentence in docs:
+                            sentiment.pop(len(sentiment) - 1)
+                            continue
+
                     docs.append(sentence)
                     sentence = []
+
                 else:
                     s = str(row).strip().split('\t')
                     if len(s) >= 3:
@@ -146,47 +156,25 @@ class Preprocessor():
     @staticmethod
     def balance_data(data: Data) -> Data:
         
-        positive = 0
-        negative = 0
-        neutral = 0
+        positive = data.labels.count("positive")
+        negative = data.labels.count("negative")
+        neutral = data.labels.count("neutral")
         
-        for label in data.labels:
-            if label == "positive":
-                positive += 1
-            elif label == "negative":
-                negative += 1
-            elif label == "neutral":
-                neutral += 1
-
         max_len = min([positive, negative, neutral])
         
-        data.scramble()
-
         blanced_data = Data()
 
-        pos_count = 0
-        neg_count = 0
-        neu_count = 0
+        count = {}
 
         for x, doc in enumerate(data.documents):
             
-            if data.labels[x] == "positive":
-                if pos_count >= max_len:
-                    continue
+            if data.labels[x] not in count:
+                count[data.labels[x]] = 1
+            else:
+                if count[data.labels[x]] <= max_len:
+                    count[data.labels[x]] += 1
                 else:
-                    pos_count += 1
-
-            if data.labels[x] == "negative":
-                if neg_count >= max_len:
                     continue
-                else:
-                    neg_count += 1
-
-            if data.labels[x] == "neutral":
-                if neu_count >= max_len:
-                    continue
-                else:
-                    neu_count += 1    
 
             blanced_data.documents.append(doc)
             blanced_data.labels.append(data.labels[x])
