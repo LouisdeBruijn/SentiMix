@@ -1,5 +1,5 @@
 class Data:
-    def __init__(self, path: str = None, format="json"):
+    def __init__(self, path: str = None, format="json", remove_dup=False):
         # properties of this class
         self.documents = []
         self.labels = []
@@ -7,11 +7,11 @@ class Data:
         if path != None:
             # lang_tags has the same shape as documents.
             self.documents, self.labels = self.__load_data(
-                path, format)
+                path, format, remove_dup)
 
         self.vectorised = []
 
-    def __load_data(self, path, format):
+    def __load_data(self, path, format, remove_dup):
         print("loading data...")
         with open(path, "r") as file:
             docs = []
@@ -24,6 +24,10 @@ class Data:
                     if d["label"] == "sentiment_label":
                         continue
 
+                    if remove_dup:
+                        if d["tokens"] in docs:
+                            continue
+
                     docs.append(d["tokens"])
                     sentiment.append(d["label"])
 
@@ -31,8 +35,14 @@ class Data:
 
             for row in file:
                 if row == "\n":
+                    if remove_dup:
+                        if sentence in docs:
+                            sentiment.pop(len(sentiment) - 1)
+                            continue
+
                     docs.append(sentence)
                     sentence = []
+
                 else:
                     s = str(row).strip().split('\t')
                     if len(s) >= 3:

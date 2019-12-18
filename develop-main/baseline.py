@@ -44,6 +44,8 @@ def run_baseline_embeddings(traindata:Data, testdata:Data):
     print_cm(cm, ["negative", "neutral", "positive"])
 
 def run_baseline_tfidf(traindata:Data, testdata:Data):
+    print("Running baseline...")
+
     xtrain = traindata.documents
     ytrain = traindata.labels
 
@@ -107,11 +109,11 @@ def console(model):
 if __name__ == "__main__":
     
     # data = Data("../data_files/train_conll_spanglish.txt", format="conll")
-    data = Data("../data_files/2016_spanglish_annotated.json", format="json")
+    data = Data("../data_files/2016_spanglish_annotated.json", format="json", remove_dup=True)
 
     # data = Preprocessor.combine_data(data, new)
     
-    data = Preprocessor.balance_data(data)
+    # data = Preprocessor.balance_data(data)
     data.scramble()
 
     traindata, testdata = Preprocessor.split_data(data, 0.8)
