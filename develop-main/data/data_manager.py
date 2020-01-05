@@ -53,8 +53,6 @@ class Data:
 
         return docs, sentiment
 
-
-
     def scramble(self):
         import random
         data = []
@@ -80,18 +78,19 @@ class Preprocessor():
         for doc in docs:
             vectors = []
             for token in doc:
-                
+
                 if unkown_vectors == None:
-                    vec = [random.uniform(-1.0, 1.0) for n in range(vector_length)]
+                    vec = [random.uniform(-1.0, 1.0)
+                           for n in range(vector_length)]
                 else:
                     vec = unkown_vectors
-                
+
                 for emb in embeddings:
                     try:
                         emb[token]
                     except KeyError:
                         continue
-                
+
                 vectors.append(vec)
 
             data.vectorised.append(vectors)
@@ -152,22 +151,21 @@ class Preprocessor():
 
         return dataA
 
-
     @staticmethod
     def balance_data(data: Data) -> Data:
-        
+
         positive = data.labels.count("positive")
         negative = data.labels.count("negative")
         neutral = data.labels.count("neutral")
-        
+
         max_len = min([positive, negative, neutral])
-        
+
         blanced_data = Data()
 
         count = {}
 
         for x, doc in enumerate(data.documents):
-            
+
             if data.labels[x] not in count:
                 count[data.labels[x]] = 1
             else:
@@ -215,8 +213,39 @@ class Preprocessor():
 
             docs.append(tokens)
 
-        data.documents = docs 
+        data.documents = docs
         return data
+
+    @staticmethod
+    def remove_emoji(data: Data) -> Data:
+        import emoji
+
+        newdata = Data()
+        for x, doc in enumerate(data.documents):
+            for i, token in enumerate(doc):
+                for c in token:
+                    if c in emoji.UNICODE_EMOJI:
+                        doc.remove(token)
+                        break
+            
+            newdata.documents.append(doc)
+            newdata.labels.append(data.labels[x])
+
+        return newdata
+
+
+class Explorer:
+    @staticmethod
+    def count_docs(data: Data):
+        length = str(len(data.documents))
+        print("There are a total of " + length + " documents.")
+
+        print("There are " + str(data.labels.count("positive")) +
+              " positive documents")
+        print("There are " + str(data.labels.count("negative")) +
+              " negative documents")
+        return
+
 
 # For debugging purposes
 if __name__ == "__main__":
