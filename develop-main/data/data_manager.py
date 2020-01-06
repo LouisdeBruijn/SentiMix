@@ -62,50 +62,33 @@ class Preprocessor():
     """
 
     @staticmethod
-    def load_embeddings(data: Data, embeddings: list, unkown_vectors: list = None, vector_length: int = 300) -> Data:
-        import random
-        docs = data.documents
-        for doc in docs:
-            vectors = []
-            for token in doc:
-
-                if unkown_vectors == None:
-                    vec = [random.uniform(-1.0, 1.0)
-                           for n in range(vector_length)]
-                else:
-                    vec = unkown_vectors
-
-                for emb in embeddings:
-                    try:
-                        emb[token]
-                    except KeyError:
-                        continue
-
-                vectors.append(vec)
-
-            data.vectorised.append(vectors)
-
-        return data
-
-    @staticmethod
-    def emoji_to_word(data: Data) -> Data:
+    def emoji_to_word(data: Data, info_path: str) -> Data:
         import emoji
         import re
 
-        docs = data.documents
-        for i, doc in enumerate(docs):
-            processed = []
-            for x, token in enumerate(doc):
-                token = emoji.demojize(token)
-                token = re.sub(r'[^\w\s]', '', token)
-                token = token.split("_")
-                processed.extend(token)
+        emoji_dic = {}
 
-            docs[i] = processed
+        with open(info_path, 'r') as file:
+            for row in file:
+                tokens = row.split("|")
+                if tokens[0] not in emoji.UNICODE_EMOJI:
+                    continue
 
-        data.documents = docs
+                emoji_dic[tokens[0]] = tokens[2]
 
-        return data
+        new_data = Data()
+        for i, doc in enumerate(data.documents):
+            new_doc = []
+            for token in doc:
+                try:
+                    text = emoji_dic[token]
+                except KeyError:
+                    text = token
+
+                new_doc.append(text)
+            new_data.documents.append(new_doc)
+            new_data.labels.append(data.labels[i])
+        return new_data
 
     @staticmethod
     def split_data(data: Data, split=0.8):
@@ -286,7 +269,7 @@ class Explorer:
 # For debugging purposes
 if __name__ == "__main__":
     data = Data("../../data_files/2016_spanglish_annotated.json")
-    data = Preprocessor.remove_emoji(data)
+    data = Preprocessor.emoji_to_word(
+        data, "../dist/emoji_informativity.txt")
 
-    for num in range(100):
-        print(data.documents[num])
+    print(data.documents[:100])
