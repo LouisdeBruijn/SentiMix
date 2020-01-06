@@ -1,17 +1,16 @@
 class Data:
-    def __init__(self, path: str = None, format="json", remove_dup=False):
+    def __init__(self, path: str = None, format="json"):
         # properties of this class
         self.documents = []
         self.labels = []
 
         if path != None:
             # lang_tags has the same shape as documents.
-            self.documents, self.labels = self.__load_data(
-                path, format, remove_dup)
+            self.documents, self.labels = self.__load_data(path, format)
 
         self.vectorised = []
 
-    def __load_data(self, path, format, remove_dup):
+    def __load_data(self, path, format):
         print("loading data...")
         with open(path, "r") as file:
             docs = []
@@ -24,10 +23,6 @@ class Data:
                     if d["label"] == "sentiment_label":
                         continue
 
-                    if remove_dup:
-                        if d["tokens"] in docs:
-                            continue
-
                     docs.append(d["tokens"])
                     sentiment.append(d["label"])
 
@@ -35,11 +30,6 @@ class Data:
 
             for row in file:
                 if row == "\n":
-                    if remove_dup:
-                        if sentence in docs:
-                            sentiment.pop(len(sentiment) - 1)
-                            continue
-
                     docs.append(sentence)
                     sentence = []
 
@@ -218,13 +208,18 @@ class Preprocessor():
 
     @staticmethod
     def remove_emoji(data: Data) -> Data:
-        import emoji
+        print("Removing emojis...")
+        from emoji import UNICODE_EMOJI, demojize
 
         newdata = Data()
         for x, doc in enumerate(data.documents):
             for token in doc:
-                for c in token:
-                    if c in emoji.UNICODE_EMOJI:
+                if token in UNICODE_EMOJI:
+                    doc.remove(token)
+                    continue
+
+                for c in str(token):
+                    if c in UNICODE_EMOJI:
                         doc.remove(token)
                         break
 
@@ -234,6 +229,25 @@ class Preprocessor():
         return newdata
 
     @staticmethod
+    def RegFormatter(data: Data, pattern="\w+") -> Data:
+        from nltk.tokenize import RegexpTokenizer
+
+        new_data = Data()
+
+        for i, doc in enumerate(data.documents):
+            sent = ""
+            for token in doc:
+                sent += str(token) + " "
+
+            tokenizer = RegexpTokenizer(pattern)
+            tokens = tokenizer.tokenize(sent)
+
+            new_data.documents.append(tokens)
+            new_data.labels.append(data.labels[i])
+
+        return new_data
+
+    @staticmethod
     def remove_dup(data: Data) -> Data:
         print("Removing duplication...")
         import pandas
@@ -241,17 +255,19 @@ class Preprocessor():
         dic = {"sentences": [], "index": []}
 
         for i, doc in enumerate(data.documents):
-            sent = ""
-            for token in doc:
-                sent += token
 
-            dic["sentences"].append(sent)
+            dic["sentences"].append(hash(tuple(doc)))
             dic["index"].append(i)
 
         df = pandas.DataFrame(data=dic)
         df.drop_duplicates(subset=['sentences'], keep=False)
-        print(df)
-        return data
+
+        new_data = Data()
+        for item in df["index"]:
+            new_data.documents.append(data.documents[item])
+            new_data.labels.append(data.labels[item])
+
+        return new_data
 
 
 class Explorer:
@@ -270,5 +286,7 @@ class Explorer:
 # For debugging purposes
 if __name__ == "__main__":
     data = Data("../../data_files/2016_spanglish_annotated.json")
+    data = Preprocessor.remove_emoji(data)
 
-    data = Preprocessor.remove_dup(data)
+    for num in range(100):
+        print(data.documents[num])
