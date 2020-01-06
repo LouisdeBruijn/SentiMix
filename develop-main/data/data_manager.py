@@ -222,16 +222,36 @@ class Preprocessor():
 
         newdata = Data()
         for x, doc in enumerate(data.documents):
-            for i, token in enumerate(doc):
+            for token in doc:
                 for c in token:
                     if c in emoji.UNICODE_EMOJI:
                         doc.remove(token)
                         break
-            
+
             newdata.documents.append(doc)
             newdata.labels.append(data.labels[x])
 
         return newdata
+
+    @staticmethod
+    def remove_dup(data: Data) -> Data:
+        print("Removing duplication...")
+        import pandas
+
+        dic = {"sentences": [], "index": []}
+
+        for i, doc in enumerate(data.documents):
+            sent = ""
+            for token in doc:
+                sent += token
+
+            dic["sentences"].append(sent)
+            dic["index"].append(i)
+
+        df = pandas.DataFrame(data=dic)
+        df.drop_duplicates(subset=['sentences'], keep=False)
+        print(df)
+        return data
 
 
 class Explorer:
@@ -249,25 +269,6 @@ class Explorer:
 
 # For debugging purposes
 if __name__ == "__main__":
-    data = Data("../../data_files/spanglish_trial.txt")
+    data = Data("../../data_files/2016_spanglish_annotated.json")
 
-    # Example for loading embedings
-    from gensim.models import KeyedVectors
-
-    print("loading english embeddings...")
-    en_embs = KeyedVectors.load_word2vec_format(
-        "../../data_files/wiki.en.align.vec", limit=10000)
-
-    print("loading spanish embeddings...")
-    es_embs = KeyedVectors.load_word2vec_format(
-        "../../data_files/wiki.es.align.vec", limit=10000)
-
-    embs = [en_embs, es_embs]
-
-    # Because Preprocessor is a static class,
-    # we do not need to instantiate an object.
-    data = Preprocessor.load_embeddings(data, embs)
-
-    # Because Prepocessor takes type Data as argument and returns type Data as value,
-    # the process is very straight forward.
-    print(data.vectorised[0])
+    data = Preprocessor.remove_dup(data)
