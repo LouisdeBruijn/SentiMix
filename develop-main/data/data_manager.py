@@ -269,7 +269,6 @@ class Explorer:
 # For debugging purposes
 if __name__ == "__main__":
     data = Data("../../data_files/2016_spanglish_annotated.json")
-    data = Preprocessor.emoji_to_word(
-        data, "../dist/emoji_informativity.txt")
-
-    print(data.documents[:100])
+    Explorer.count_docs(data)
+    data = Preprocessor.combine_data(data, data)
+    Explorer.count_docs(data)

@@ -54,7 +54,7 @@ def run_baseline_tfidf(traindata: Data, testdata: Data):
 
     vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer=lambda x: x)
     classifier = Pipeline(
-        [('vec', vec), ('cls', LinearSVC())])
+        [('vec', vec), ('cls', LinearSVC(C=20))])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -113,25 +113,23 @@ def console(model):
 
 if __name__ == "__main__":
 
-    data = Data("../data_files/2016_spanglish_annotated.json", format="json")
-    data = Preprocessor.RegFormatter(data)
-    data = Preprocessor.balance_data(data)
-    data.scramble()
-    # print(data.documents[:10])
-    # data.scramble()
-
-    # traindata, testdata = Preprocessor.split_data(data, 0.8)
+    # data = Data("../data_files/2016_spanglish_annotated.json", format="json")
 
     conll = Data("../data_files/train_conll_spanglish.txt", format="conll")
-    conll = Preprocessor.RegFormatter(conll)
-    conll.scramble()
 
-    traindata, testdata = Preprocessor.split_data(conll)
-    traindata = Preprocessor.combine_data(traindata, data)
+    train, test = Preprocessor.split_data(conll)
 
-    traindata = Preprocessor.balance_data(traindata)
+    # datas = []
 
-    model = run_baseline_tfidf(traindata, testdata)
+    # for d in [train, test]:
+    #     d = Preprocessor.RegFormatter(d)
+    #     d = Preprocessor.remove_punctuations(d)
+    #     datas.append(d)
+
+    # data = Preprocessor.RegFormatter(data)
+    # conll = Preprocessor.RegFormatter((conll))
+
+    model = run_baseline_tfidf(train, test)
 
     # Enable a console for realtime testing
-    # console(model)
+    console(model)
