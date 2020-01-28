@@ -166,23 +166,25 @@ if __name__ == "__main__":
 
     # run_baseline_tfidf(data_set[0], data_set[1])
 
-    from gensim.models import KeyedVectors
-    emb_en = KeyedVectors.load_word2vec_format(
-        "../data_files/wiki.en.align.vec")
-    emb_es = KeyedVectors.load_word2vec_format(
-        "../data_files/wiki.es.align.vec")
+    # from gensim.models import KeyedVectors
+    # emb_en = KeyedVectors.load_word2vec_format(
+    #     "../data_files/wiki.en.align.vec")
+    # emb_es = KeyedVectors.load_word2vec_format(
+    #     "../data_files/wiki.es.align.vec")
 
-    # google = KeyedVectors.load_word2vec_format(
-    #     "../data_files/GoogleNews-vectors-negative300.bin", binary=True)
+    # # google = KeyedVectors.load_word2vec_format(
+    # #     "../data_files/GoogleNews-vectors-negative300.bin", binary=True)
 
-    embs = [emb_en, emb_es]
-    # embs = [google]
+    # embs = [emb_en, emb_es]
+    # # embs = [google]
 
-    print("\nWord embeddings using final_train.conll")
-    run_baseline_embeddings(train_conll, test, embs)
+    # print("\nWord embeddings using final_train.conll")
+    # run_baseline_embeddings(train_conll, test, embs)
 
-    print("\nWord embeddings using 2016_spanglish")
-    run_baseline_embeddings(train_2016, test, embs)
+    # print("\nWord embeddings using 2016_spanglish")
+    # run_baseline_embeddings(train_2016, test, embs)
+
+    run_random_baseline(train_2016, test)
 
     # Enable a console for realtime testing
     # console(model)

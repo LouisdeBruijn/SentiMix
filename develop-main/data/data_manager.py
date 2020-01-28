@@ -263,12 +263,16 @@ class Explorer:
               " positive documents")
         print("There are " + str(data.labels.count("negative")) +
               " negative documents")
+
+        print("There are " + str(data.labels.count("neutral")) +
+              " neutral documents")
         return
 
 
 # For debugging purposes
 if __name__ == "__main__":
-    data = Data("../../data_files/2016_spanglish_annotated.json")
+    # data = Data("../../data_files/2016_spanglish_annotated.json")
+    data = Data("./final_train.conll", format="conll")
     Explorer.count_docs(data)
-    data = Preprocessor.combine_data(data, data)
-    Explorer.count_docs(data)
+    # data = Preprocessor.combine_data(data, data)
+    # Explorer.count_docs(data)

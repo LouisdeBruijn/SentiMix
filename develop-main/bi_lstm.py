@@ -8,7 +8,7 @@ Original file is located at
 
 # SentiMix Spanglish
 
-## Import
+# Import
 """
 
 import numpy as np
@@ -143,7 +143,8 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
         sequence_input = Input(shape=(max_len,), dtype='int32')
         embedded_sequences = embed_layer(sequence_input)
 
-        output_1 = Bidirectional(LSTM(50, activation='relu'))(embedded_sequences)
+        output_1 = Bidirectional(
+            LSTM(50, activation='relu'))(embedded_sequences)
         drop = Dropout(0.3)(output_1)
         dense1 = Dense(100, activation='relu')(drop)
         drop2 = Dropout(0.3)(dense1)
@@ -152,7 +153,8 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
 
         model = Model(inputs=sequence_input, outputs=preds)
         adam = Adam(lr=0.001, amsgrad=True)
-        model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
+        model.compile(loss='categorical_crossentropy',
+                      optimizer=adam, metrics=['accuracy'])
 
         return model
     else:
@@ -161,7 +163,8 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
                                        output_dim=100,
                                        input_length=max_len)(sequence_input)
 
-        output_1 = Bidirectional(LSTM(50, activation='relu'))(embedded_sequences)
+        output_1 = Bidirectional(
+            LSTM(50, activation='relu'))(embedded_sequences)
         drop = Dropout(0.3)(output_1)
         dense1 = Dense(20, activation='relu')(drop)
         drop2 = Dropout(0.2)(dense1)
@@ -169,14 +172,15 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
 
         model_wE = Model(inputs=sequence_input, outputs=preds)
         adam = Adam(lr=0.001, amsgrad=True)
-        model_wE.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
+        model_wE.compile(loss='categorical_crossentropy',
+                         optimizer=adam, metrics=['accuracy'])
 
         return model_wE
 
 
-if __name__ == '__main__':
+def run_model(data_root):
 
-    data_path = 'data/'
+    data_path = data_root
 
     spanglish_path = data_path + 'final_train.conll'
     spanglish_new = data_path + 'conv_2016_spanglish_annotated.json'
@@ -187,8 +191,10 @@ if __name__ == '__main__':
     es_embed_file = data_path + "wiki.es.align.vec"
 
     # Twitter embeddings
-    twitter_en_embed_file = data_path + 'crosslingual_EN-ES_english_twitter_100d_weighted.txt.w2v'
-    twitter_es_embed_file = data_path + 'crosslingual_EN-ES_spanish_twitter_100d_weighted.txt.w2v'
+    twitter_en_embed_file = data_path + \
+        'crosslingual_EN-ES_english_twitter_100d_weighted.txt.w2v'
+    twitter_es_embed_file = data_path + \
+        'crosslingual_EN-ES_spanish_twitter_100d_weighted.txt.w2v'
 
     # emoji informativity
     info_path = data_path + 'emoji_informativity.txt'
@@ -246,8 +252,10 @@ if __name__ == '__main__':
     oov = 'unk'
     pad = 'PAD'
 
-    Xtrain, Xtest, tokenizer, max_len = preprocess_docs(train.documents, test.documents, oov, pad)
-    ytrain, ytest, label2index, index2label = preprocess_labels(train.labels, test.labels)
+    Xtrain, Xtest, tokenizer, max_len = preprocess_docs(
+        train.documents, test.documents, oov, pad)
+    ytrain, ytest, label2index, index2label = preprocess_labels(
+        train.labels, test.labels)
 
     index2emb = get_embeddings(tokenizer, embed_en, embed_es)
     embedding_layer = get_embedding_layer(index2emb, max_len, tokenizer)
@@ -259,13 +267,15 @@ if __name__ == '__main__':
     model = make_LSTM(embedding_layer)
     print(model.summary())
 
-    history = model.fit(Xtrain, ytrain, batch_size=512, epochs=20, verbose=1, validation_split=0.1)
+    history = model.fit(Xtrain, ytrain, batch_size=512,
+                        epochs=20, verbose=1, validation_split=0.1)
 
     predictions = model.predict(Xtest)
     pred = np.argmax(predictions, axis=1)
     Ytest_converted = np.argmax(ytest, axis=1)
 
-    print(classification_report(Ytest_converted, pred, target_names=['neg', 'neu', 'pos']))
+    print(classification_report(Ytest_converted,
+                                pred, target_names=['neg', 'neu', 'pos']))
     print(confusion_matrix(Ytest_converted, pred))
 
     ########
@@ -273,11 +283,18 @@ if __name__ == '__main__':
     model_wE = make_LSTM(vocab=vocab_size, max_len=max_len)
     model_wE.summary()
 
-    history_2 = model_wE.fit(Xtrain, ytrain, batch_size=256, epochs=20, verbose=1, validation_split=0.1)
+    history_2 = model_wE.fit(
+        Xtrain, ytrain, batch_size=256, epochs=20, verbose=1, validation_split=0.1)
 
     predictions = model_wE.predict(Xtest)
     pred = np.argmax(predictions, axis=1)
     Ytest_converted = np.argmax(ytest, axis=1)
 
-    print(classification_report(Ytest_converted, pred, target_names=['neg', 'neu', 'pos']))
+    print(classification_report(Ytest_converted,
+                                pred, target_names=['neg', 'neu', 'pos']))
     print(confusion_matrix(Ytest_converted, pred))
+
+
+if __name__ == '__main__':
+
+    data_root("./data/")
