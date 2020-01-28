@@ -9,6 +9,7 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 
 from data.data_manager import Data, Preprocessor, Explorer
+import random
 
 
 class MeanEmbeddingVectorizer(object):
@@ -42,6 +43,28 @@ class MeanEmbeddingVectorizer(object):
             vec.append(v)
 
         return vec
+
+
+def run_random_baseline(traindata: Data, testdata: Data):
+    posl = traindata.labels.count("positive")
+    negl = traindata.labels.count("negative")
+    neul = traindata.labels.count("neutral")
+
+    pred = []
+
+    for doc in testdata.labels:
+        num = random.uniform(0, len(traindata.labels))
+        if num >= 0 and num <= posl:
+            pred.append("positive")
+        elif num > posl and num <= negl + posl:
+            pred.append("negative")
+        else:
+            pred.append("neutral")
+
+    ytest = testdata.labels
+    print(classification_report(ytest, pred))
+    cm = confusion_matrix(ytest, pred)
+    print_cm(cm, ["negative", "neutral", "positive"])
 
 
 def run_baseline_embeddings(traindata: Data, testdata: Data, embs: list):
@@ -130,8 +153,8 @@ if __name__ == "__main__":
     train_conll = Data(
         "../data_files/final_train.conll", format="conll")
 
-    train_2016 = Data(
-        "../data_files/2016_spanglish_annotated.json", format="json")
+    # train_2016 = Data(
+    #     "../data_files/2016_spanglish_annotated.json", format="json")
 
     test = Data("../data_files/final_trial.conll", format="conll")
 
@@ -143,23 +166,23 @@ if __name__ == "__main__":
 
     # run_baseline_tfidf(data_set[0], data_set[1])
 
-    from gensim.models import KeyedVectors
-    # emb_en = KeyedVectors.load_word2vec_format(
-    #     "../data_files/wiki.en.align.vec")
-    # emb_es = KeyedVectors.load_word2vec_format(
-    #     "../data_files/wiki.es.align.vec")
+    # from gensim.models import KeyedVectors
+    # # emb_en = KeyedVectors.load_word2vec_format(
+    # #     "../data_files/wiki.en.align.vec")
+    # # emb_es = KeyedVectors.load_word2vec_format(
+    # #     "../data_files/wiki.es.align.vec")
 
-    google = KeyedVectors.load_word2vec_format(
-        "../data_files/GoogleNews-vectors-negative300.bin", binary=True)
+    # google = KeyedVectors.load_word2vec_format(
+    #     "../data_files/GoogleNews-vectors-negative300.bin", binary=True)
 
-    # embs = [emb_en, emb_es]
-    embs = [google]
+    # # embs = [emb_en, emb_es]
+    # embs = [google]
 
-    print("\nWord embeddings using final_train.conll")
-    run_baseline_embeddings(train_conll, test, embs)
+    # print("\nWord embeddings using final_train.conll")
+    # run_baseline_embeddings(train_conll, test, embs)
 
-    print("\nWord embeddings using 2016_spanglish")
-    run_baseline_embeddings(train_2016, test, embs)
+    # print("\nWord embeddings using 2016_spanglish")
+    # run_baseline_embeddings(train_2016, test, embs)
 
     # Enable a console for realtime testing
     # console(model)

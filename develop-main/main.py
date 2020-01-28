@@ -1,3 +1,6 @@
+from bi_lstm import *
+
+
 def main():
     # argparse for the arguments
     # one argument: baseline
