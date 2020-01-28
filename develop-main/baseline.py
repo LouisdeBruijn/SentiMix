@@ -12,33 +12,47 @@ from data.data_manager import Data, Preprocessor, Explorer
 
 
 class MeanEmbeddingVectorizer(object):
-    def __init__(self):
+    def __init__(self, embs: list):
+        self.embs = embs
         pass
 
     def fit(self, X, y):
         return self
 
     def transform(self, X):
-        # X should be data.vectorised
+
         vec = []
-        for vectors in X:
-            import numpy
-            v = numpy.array(vectors)
-            v = numpy.mean(v, axis=0)
+        for tokens in X:
+            vectors = []
+            for token in tokens:
+                try:
+                    emb_vec = self.embs[0]["unk"]
+                except KeyError:
+                    emb_vec = self.embs[0]["UNK"]
+
+                for emb in self.embs:
+                    try:
+                        emb_vec = emb[token.lower()]
+                    except KeyError:
+                        continue
+                vectors.append(emb_vec)
+
+            v = np.array(vectors)
+            v = np.mean(v, axis=0)
             vec.append(v)
 
         return vec
 
 
-def run_baseline_embeddings(traindata: Data, testdata: Data):
-    xtrain = traindata.vectorised
+def run_baseline_embeddings(traindata: Data, testdata: Data, embs: list):
+    xtrain = traindata.documents
     ytrain = traindata.labels
 
-    vec = MeanEmbeddingVectorizer()
-    classifier = Pipeline([('vec', vec), ('cls', MultinomialNB())])
+    vec = MeanEmbeddingVectorizer(embs)
+    classifier = Pipeline([('vec', vec), ('cls', LinearSVC(C=10))])
     classifier.fit(xtrain, ytrain)
 
-    xtest = testdata.vectorised
+    xtest = testdata.documents
     ytest = testdata.labels
     predict = classifier.predict(xtest)
     print(classification_report(ytest, predict))
@@ -54,7 +68,7 @@ def run_baseline_tfidf(traindata: Data, testdata: Data):
 
     vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer=lambda x: x)
     classifier = Pipeline(
-        [('vec', vec), ('cls', LinearSVC(C=20))])
+        [('vec', vec), ('cls', LinearSVC(C=10))])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -113,23 +127,39 @@ def console(model):
 
 if __name__ == "__main__":
 
-    # data = Data("../data_files/2016_spanglish_annotated.json", format="json")
+    train_conll = Data(
+        "../data_files/final_train.conll", format="conll")
 
-    conll = Data("../data_files/train_conll_spanglish.txt", format="conll")
+    train_2016 = Data(
+        "../data_files/2016_spanglish_annotated.json", format="json")
 
-    train, test = Preprocessor.split_data(conll)
+    test = Data("../data_files/final_trial.conll", format="conll")
 
-    # datas = []
+    # data_set = []
 
-    # for d in [train, test]:
+    # for d in [train_2016, test]:
     #     d = Preprocessor.RegFormatter(d)
-    #     d = Preprocessor.remove_punctuations(d)
-    #     datas.append(d)
+    #     data_set.append(d)
 
-    # data = Preprocessor.RegFormatter(data)
-    # conll = Preprocessor.RegFormatter((conll))
+    # run_baseline_tfidf(data_set[0], data_set[1])
 
-    model = run_baseline_tfidf(train, test)
+    from gensim.models import KeyedVectors
+    # emb_en = KeyedVectors.load_word2vec_format(
+    #     "../data_files/wiki.en.align.vec")
+    # emb_es = KeyedVectors.load_word2vec_format(
+    #     "../data_files/wiki.es.align.vec")
+
+    google = KeyedVectors.load_word2vec_format(
+        "../data_files/GoogleNews-vectors-negative300.bin", binary=True)
+
+    # embs = [emb_en, emb_es]
+    embs = [google]
+
+    print("\nWord embeddings using final_train.conll")
+    run_baseline_embeddings(train_conll, test, embs)
+
+    print("\nWord embeddings using 2016_spanglish")
+    run_baseline_embeddings(train_2016, test, embs)
 
     # Enable a console for realtime testing
-    console(model)
+    # console(model)
