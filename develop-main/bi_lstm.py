@@ -143,7 +143,7 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
         sequence_input = Input(shape=(max_len,), dtype='int32')
         embedded_sequences = embed_layer(sequence_input)
 
-        output_1 = GRU(50, activation='relu')(embedded_sequences)
+        output_1 = Bidirectional(LSTM(50, activation='relu'))(embedded_sequences)
         drop = Dropout(0.3)(output_1)
         dense1 = Dense(100, activation='relu')(drop)
         drop2 = Dropout(0.3)(dense1)
@@ -175,7 +175,6 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
 
 
 if __name__ == '__main__':
-    # !!! Update locations
 
     data_path = 'data/'
 
