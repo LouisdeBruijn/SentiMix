@@ -1,14 +1,15 @@
-from data.data_manager import Data, Preprocessor
-from sklearn.svm import SVC, LinearSVC
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.tree import DecisionTreeClassifier
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import *
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.svm import SVC, LinearSVC
+from sklearn.tree import DecisionTreeClassifier
 
-import numpy as np
+from data.data_manager import Data, Preprocessor, Explorer
+
 
 class MeanEmbeddingVectorizer(object):
     def __init__(self):
@@ -28,7 +29,8 @@ class MeanEmbeddingVectorizer(object):
 
         return vec
 
-def run_baseline_embeddings(traindata:Data, testdata:Data):
+
+def run_baseline_embeddings(traindata: Data, testdata: Data):
     xtrain = traindata.vectorised
     ytrain = traindata.labels
 
@@ -43,14 +45,16 @@ def run_baseline_embeddings(traindata:Data, testdata:Data):
     cm = confusion_matrix(ytest, predict)
     print_cm(cm, ["negative", "neutral", "positive"])
 
-def run_baseline_tfidf(traindata:Data, testdata:Data):
+
+def run_baseline_tfidf(traindata: Data, testdata: Data):
     print("Running baseline...")
 
     xtrain = traindata.documents
     ytrain = traindata.labels
 
-    vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer= lambda x: x)
-    classifier = Pipeline([('vec', vec), ('cls', RandomForestClassifier(n_estimators=1000))])
+    vec = TfidfVectorizer(preprocessor=lambda x: x, tokenizer=lambda x: x)
+    classifier = Pipeline(
+        [('vec', vec), ('cls', LinearSVC(C=20))])
     classifier.fit(xtrain, ytrain)
 
     xtest = testdata.documents
@@ -106,17 +110,26 @@ def console(model):
         sentence = [sentence.split()]
         print(model.predict(sentence))
 
+
 if __name__ == "__main__":
-    
-    # data = Data("../data_files/train_conll_spanglish.txt", format="conll")
-    data = Data("../data_files/2016_spanglish_annotated.json", format="json", remove_dup=True)
 
-    # data = Preprocessor.combine_data(data, new)
-    
-    # data = Preprocessor.balance_data(data)
-    data.scramble()
+    # data = Data("../data_files/2016_spanglish_annotated.json", format="json")
 
-    traindata, testdata = Preprocessor.split_data(data, 0.8)
+    conll = Data("../data_files/train_conll_spanglish.txt", format="conll")
 
-    model = run_baseline_tfidf(traindata, testdata)
+    train, test = Preprocessor.split_data(conll)
+
+    # datas = []
+
+    # for d in [train, test]:
+    #     d = Preprocessor.RegFormatter(d)
+    #     d = Preprocessor.remove_punctuations(d)
+    #     datas.append(d)
+
+    # data = Preprocessor.RegFormatter(data)
+    # conll = Preprocessor.RegFormatter((conll))
+
+    model = run_baseline_tfidf(train, test)
+
+    # Enable a console for realtime testing
     console(model)

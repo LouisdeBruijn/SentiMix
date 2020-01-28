@@ -1,17 +1,16 @@
 class Data:
-    def __init__(self, path: str = None, format="json", remove_dup=False):
+    def __init__(self, path: str = None, format="json"):
         # properties of this class
         self.documents = []
         self.labels = []
 
         if path != None:
             # lang_tags has the same shape as documents.
-            self.documents, self.labels = self.__load_data(
-                path, format, remove_dup)
+            self.documents, self.labels = self.__load_data(path, format)
 
         self.vectorised = []
 
-    def __load_data(self, path, format, remove_dup):
+    def __load_data(self, path, format):
         print("loading data...")
         with open(path, "r") as file:
             docs = []
@@ -24,10 +23,6 @@ class Data:
                     if d["label"] == "sentiment_label":
                         continue
 
-                    if remove_dup:
-                        if d["tokens"] in docs:
-                            continue
-
                     docs.append(d["tokens"])
                     sentiment.append(d["label"])
 
@@ -35,11 +30,6 @@ class Data:
 
             for row in file:
                 if row == "\n":
-                    if remove_dup:
-                        if sentence in docs:
-                            sentiment.pop(len(sentiment) - 1)
-                            continue
-
                     docs.append(sentence)
                     sentence = []
 
@@ -52,8 +42,6 @@ class Data:
                     sentence.append(s[0])
 
         return docs, sentiment
-
-
 
     def scramble(self):
         import random
@@ -74,49 +62,33 @@ class Preprocessor():
     """
 
     @staticmethod
-    def load_embeddings(data: Data, embeddings: list, unkown_vectors: list = None, vector_length: int = 300) -> Data:
-        import random
-        docs = data.documents
-        for doc in docs:
-            vectors = []
-            for token in doc:
-                
-                if unkown_vectors == None:
-                    vec = [random.uniform(-1.0, 1.0) for n in range(vector_length)]
-                else:
-                    vec = unkown_vectors
-                
-                for emb in embeddings:
-                    try:
-                        emb[token]
-                    except KeyError:
-                        continue
-                
-                vectors.append(vec)
-
-            data.vectorised.append(vectors)
-
-        return data
-
-    @staticmethod
-    def emoji_to_word(data: Data) -> Data:
+    def emoji_to_word(data: Data, info_path: str) -> Data:
         import emoji
         import re
 
-        docs = data.documents
-        for i, doc in enumerate(docs):
-            processed = []
-            for x, token in enumerate(doc):
-                token = emoji.demojize(token)
-                token = re.sub(r'[^\w\s]', '', token)
-                token = token.split("_")
-                processed.extend(token)
+        emoji_dic = {}
 
-            docs[i] = processed
+        with open(info_path, 'r') as file:
+            for row in file:
+                tokens = row.split("|")
+                if tokens[0] not in emoji.UNICODE_EMOJI:
+                    continue
 
-        data.documents = docs
+                emoji_dic[tokens[0]] = tokens[2]
 
-        return data
+        new_data = Data()
+        for i, doc in enumerate(data.documents):
+            new_doc = []
+            for token in doc:
+                try:
+                    text = emoji_dic[token]
+                except KeyError:
+                    text = token
+
+                new_doc.append(text)
+            new_data.documents.append(new_doc)
+            new_data.labels.append(data.labels[i])
+        return new_data
 
     @staticmethod
     def split_data(data: Data, split=0.8):
@@ -152,22 +124,21 @@ class Preprocessor():
 
         return dataA
 
-
     @staticmethod
     def balance_data(data: Data) -> Data:
-        
+
         positive = data.labels.count("positive")
         negative = data.labels.count("negative")
         neutral = data.labels.count("neutral")
-        
+
         max_len = min([positive, negative, neutral])
-        
+
         blanced_data = Data()
 
         count = {}
 
         for x, doc in enumerate(data.documents):
-            
+
             if data.labels[x] not in count:
                 count[data.labels[x]] = 1
             else:
@@ -215,30 +186,89 @@ class Preprocessor():
 
             docs.append(tokens)
 
-        data.documents = docs 
+        data.documents = docs
         return data
+
+    @staticmethod
+    def remove_emoji(data: Data) -> Data:
+        print("Removing emojis...")
+        from emoji import UNICODE_EMOJI, demojize
+
+        newdata = Data()
+        for x, doc in enumerate(data.documents):
+            for token in doc:
+                if token in UNICODE_EMOJI:
+                    doc.remove(token)
+                    continue
+
+                for c in str(token):
+                    if c in UNICODE_EMOJI:
+                        doc.remove(token)
+                        break
+
+            newdata.documents.append(doc)
+            newdata.labels.append(data.labels[x])
+
+        return newdata
+
+    @staticmethod
+    def RegFormatter(data: Data, pattern="\w+") -> Data:
+        from nltk.tokenize import RegexpTokenizer
+
+        new_data = Data()
+
+        for i, doc in enumerate(data.documents):
+            sent = ""
+            for token in doc:
+                sent += str(token) + " "
+
+            tokenizer = RegexpTokenizer(pattern)
+            tokens = tokenizer.tokenize(sent)
+
+            new_data.documents.append(tokens)
+            new_data.labels.append(data.labels[i])
+
+        return new_data
+
+    @staticmethod
+    def remove_dup(data: Data) -> Data:
+        print("Removing duplication...")
+        import pandas
+
+        dic = {"sentences": [], "index": []}
+
+        for i, doc in enumerate(data.documents):
+
+            dic["sentences"].append(hash(tuple(doc)))
+            dic["index"].append(i)
+
+        df = pandas.DataFrame(data=dic)
+        df.drop_duplicates(subset=['sentences'], keep=False)
+
+        new_data = Data()
+        for item in df["index"]:
+            new_data.documents.append(data.documents[item])
+            new_data.labels.append(data.labels[item])
+
+        return new_data
+
+
+class Explorer:
+    @staticmethod
+    def count_docs(data: Data):
+        length = str(len(data.documents))
+        print("There are a total of " + length + " documents.")
+
+        print("There are " + str(data.labels.count("positive")) +
+              " positive documents")
+        print("There are " + str(data.labels.count("negative")) +
+              " negative documents")
+        return
+
 
 # For debugging purposes
 if __name__ == "__main__":
-    data = Data("../../data_files/spanglish_trial.txt")
-
-    # Example for loading embedings
-    from gensim.models import KeyedVectors
-
-    print("loading english embeddings...")
-    en_embs = KeyedVectors.load_word2vec_format(
-        "../../data_files/wiki.en.align.vec", limit=10000)
-
-    print("loading spanish embeddings...")
-    es_embs = KeyedVectors.load_word2vec_format(
-        "../../data_files/wiki.es.align.vec", limit=10000)
-
-    embs = [en_embs, es_embs]
-
-    # Because Preprocessor is a static class,
-    # we do not need to instantiate an object.
-    data = Preprocessor.load_embeddings(data, embs)
-
-    # Because Prepocessor takes type Data as argument and returns type Data as value,
-    # the process is very straight forward.
-    print(data.vectorised[0])
+    data = Data("../../data_files/2016_spanglish_annotated.json")
+    Explorer.count_docs(data)
+    data = Preprocessor.combine_data(data, data)
+    Explorer.count_docs(data)
