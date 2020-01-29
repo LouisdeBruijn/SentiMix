@@ -178,17 +178,20 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
         return model_wE
 
 
-def run_model(data_root):
+def run_model(train, test, en_emb, es_emb):
 
-    data_path = data_root
+    data_path = "./data/"
 
     spanglish_path = data_path + 'final_train.conll'
     spanglish_new = data_path + 'conv_2016_spanglish_annotated.json'
     spanglish_trial = data_path + "final_trial.conll"
 
     # embeddings
-    en_embed_file = data_path + "wiki.en.align.vec"
-    es_embed_file = data_path + "wiki.es.align.vec"
+    # en_embed_file = data_path + "wiki.en.align.vec"
+    # es_embed_file = data_path + "wiki.es.align.vec"
+
+    en_embed_file = en_emb
+    es_embed_file = es_emb
 
     # Twitter embeddings
     twitter_en_embed_file = data_path + \
@@ -199,14 +202,17 @@ def run_model(data_root):
     # emoji informativity
     info_path = data_path + 'emoji_informativity.txt'
 
-    data_train = Data(spanglish_path, format='conll')
-    data_trial = Data(spanglish_trial, format='conll')
+    # data_train = Data(spanglish_path, format='conll')
+    # data_trial = Data(spanglish_trial, format='conll')
+
+    # data_train = train
+    # data_trial = test
 
     # data = data_manager.Preprocessor.emoji_to_word(data, info_path)
     # data_trial = data_manager.Preprocessor.emoji_to_word(data_trial, info_path)
 
-    data_train.scramble()
-    data_trial.scramble()
+    # data_train.scramble()
+    # data_trial.scramble()
 
     # Spanglish 2016
     # data_2016 = Data(spanglish_new, format='json')
@@ -219,11 +225,11 @@ def run_model(data_root):
     # train.scramble()
     # test = data_trial
 
-    train = data_train
-    test = data_trial
+    # train = data_train
+    # test = data_trial
 
-    print(len(train.documents))
-    print(len(test.documents))
+    print(f"Number of training documents: {len(train.documents)}")
+    print(f"Number of testing documents: {len(test.documents)}")
 
     """### Check Embedding Coverage"""
 

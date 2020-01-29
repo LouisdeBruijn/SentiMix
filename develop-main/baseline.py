@@ -84,8 +84,6 @@ def run_baseline_embeddings(traindata: Data, testdata: Data, embs: list):
 
 
 def run_baseline_tfidf(traindata: Data, testdata: Data):
-    print("Running baseline...")
-
     xtrain = traindata.documents
     ytrain = traindata.labels
 
