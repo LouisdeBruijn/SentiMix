@@ -27,6 +27,7 @@ from collections import defaultdict
 from keras.layers import *
 
 from data.data_manager import Data, Preprocessor, Explorer
+from baseline import print_cm
 
 
 ############################################
@@ -138,81 +139,65 @@ def get_embedding_layer(index2emb, max_len, tokenizer):
     return embedding_layer
 
 
-def make_LSTM(embed_layer=None, vocab=None, max_len=None):
-    if embed_layer is not None:
-        sequence_input = Input(shape=(max_len,), dtype='int32')
-        embedded_sequences = embed_layer(sequence_input)
+def make_LSTM(embed_layer):
+    print('Building Bi-LSTM with pre-trained embeddings...')
+    sequence_input = Input(shape=(max_len,), dtype='int32')
+    embedded_sequences = embed_layer(sequence_input)
 
-        output_1 = Bidirectional(
-            LSTM(50, activation='relu'))(embedded_sequences)
-        drop = Dropout(0.3)(output_1)
-        dense1 = Dense(100, activation='relu')(drop)
-        drop2 = Dropout(0.3)(dense1)
-        dense2 = Dense(100, activation='relu')(drop2)
-        preds = Dense(3, activation='softmax')(dense2)
+    output_1 = Bidirectional(
+        LSTM(50, activation='relu'))(embedded_sequences)
+    drop = Dropout(0.3)(output_1)
+    dense1 = Dense(100, activation='relu')(drop)
+    drop2 = Dropout(0.3)(dense1)
+    dense2 = Dense(100, activation='relu')(drop2)
+    preds = Dense(3, activation='softmax')(dense2)
 
-        model = Model(inputs=sequence_input, outputs=preds)
-        adam = Adam(lr=0.001, amsgrad=True)
-        model.compile(loss='categorical_crossentropy',
-                      optimizer=adam, metrics=['accuracy'])
+    model = Model(inputs=sequence_input, outputs=preds)
+    adam = Adam(lr=0.001, amsgrad=True)
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=adam, metrics=['accuracy'])
 
-        return model
-    else:
-        sequence_input = Input(shape=(max_len,), dtype='int32')
-        embedded_sequences = Embedding(input_dim=vocab,
-                                       output_dim=100,
-                                       input_length=max_len)(sequence_input)
-
-        output_1 = Bidirectional(
-            LSTM(50, activation='relu'))(embedded_sequences)
-        drop = Dropout(0.3)(output_1)
-        dense1 = Dense(20, activation='relu')(drop)
-        drop2 = Dropout(0.2)(dense1)
-        preds = Dense(3, activation='softmax')(drop2)
-
-        model_wE = Model(inputs=sequence_input, outputs=preds)
-        adam = Adam(lr=0.001, amsgrad=True)
-        model_wE.compile(loss='categorical_crossentropy',
-                         optimizer=adam, metrics=['accuracy'])
-
-        return model_wE
+    return model
 
 
-def run_model(train, test, en_emb, es_emb, no_emb):
+def make_LSTM_with_embeddings(vocab, max_len):
+    print('Building Bi-LSTM and training embeddings...')
+    sequence_input = Input(shape=(max_len,), dtype='int32')
+    embedded_sequences = Embedding(input_dim=vocab,
+                                   output_dim=100,
+                                   input_length=max_len)(sequence_input)
 
+    output_1 = Bidirectional(
+        LSTM(50, activation='relu'))(embedded_sequences)
+    drop = Dropout(0.3)(output_1)
+    dense1 = Dense(20, activation='relu')(drop)
+    drop2 = Dropout(0.2)(dense1)
+    preds = Dense(3, activation='softmax')(drop2)
+
+    model_wE = Model(inputs=sequence_input, outputs=preds)
+    adam = Adam(lr=0.001, amsgrad=True)
+    model_wE.compile(loss='categorical_crossentropy',
+                     optimizer=adam, metrics=['accuracy'])
+
+    return model_wE
+
+
+def run_model(train, test, en_emb, es_emb):
     data_path = "./data/"
 
-    spanglish_path = data_path + 'final_train.conll'
-    spanglish_new = data_path + 'conv_2016_spanglish_annotated.json'
-    spanglish_trial = data_path + "final_trial.conll"
-
-    # embeddings
-    # en_embed_file = data_path + "wiki.en.align.vec"
-    # es_embed_file = data_path + "wiki.es.align.vec"
-
-    en_embed_file = en_emb
-    es_embed_file = es_emb
-
-    # Twitter embeddings
-    twitter_en_embed_file = data_path + \
-        'crosslingual_EN-ES_english_twitter_100d_weighted.txt.w2v'
-    twitter_es_embed_file = data_path + \
-        'crosslingual_EN-ES_spanish_twitter_100d_weighted.txt.w2v'
+    if en_emb is not None:
+        print('Load English embeddings..')
+        embed_en = KeyedVectors.load_word2vec_format(en_emb, binary=False)
+        print('Load Spanish embeddings..')
+        embed_es = KeyedVectors.load_word2vec_format(es_emb, binary=False)
 
     # emoji informativity
     info_path = data_path + 'emoji_informativity.txt'
 
-    # data_train = Data(spanglish_path, format='conll')
-    # data_trial = Data(spanglish_trial, format='conll')
-
-    # data_train = train
-    # data_trial = test
-
     # data = data_manager.Preprocessor.emoji_to_word(data, info_path)
     # data_trial = data_manager.Preprocessor.emoji_to_word(data_trial, info_path)
 
-    # data_train.scramble()
-    # data_trial.scramble()
+    train.scramble()
 
     # Spanglish 2016
     # data_2016 = Data(spanglish_new, format='json')
@@ -225,38 +210,22 @@ def run_model(train, test, en_emb, es_emb, no_emb):
     # train.scramble()
     # test = data_trial
 
-    # train = data_train
-    # test = data_trial
-
     print(f"Number of training documents: {len(train.documents)}")
     print(f"Number of testing documents: {len(test.documents)}")
 
     """### Check Embedding Coverage"""
 
-    if not no_emb:
-        print('Load English embeddings..')
-        embed_en = KeyedVectors.load_word2vec_format(
-            en_embed_file, binary=False)
-        print('Load Spanish embeddings..')
-        embed_es = KeyedVectors.load_word2vec_format(
-            es_embed_file, binary=False)
-
-    # print('Load English twitter embeddings..')
-    # embed_en = KeyedVectors.load_word2vec_format(twitter_en_embed_file, binary=False)
-    # print('Load Spanish twitter embeddings..')
-    # embed_es = KeyedVectors.load_word2vec_format(twitter_es_embed_file, binary=False)
-
     # Print the embedding coverage
-    data = Preprocessor.combine_data(train, test)
-    word2lang_all = make_lang_dict(data.documents, data.labels)
-    found, not_found = embed_coverage(word2lang_all, embed_en, embed_es)
-    all_words = len(word2lang_all)
-    print("{0} of {1} words were found in 2 embeddings. That is {2:2f} percent".format(len(found), all_words,
-                                                                                       (len(found) / all_words * 100)))
-    print("{0} of {1} words were not found. That is {2:2f} percent".format(len(not_found), all_words,
-                                                                           (len(not_found) / all_words * 100)))
+    # data = Preprocessor.combine_data(train, test)
+    # word2lang_all = make_lang_dict(data.documents, data.labels)
+    # found, not_found = embed_coverage(word2lang_all, embed_en, embed_es)
+    # all_words = len(word2lang_all)
+    # print("{0} of {1} words were found in 2 embeddings. That is {2:2f} percent".format(len(found), all_words,
+    #                                                                                    (len(found) / all_words * 100)))
+    # print("{0} of {1} words were not found. That is {2:2f} percent".format(len(not_found), all_words,
+    #                                                                        (len(not_found) / all_words * 100)))
 
-    # Pre-processing ####
+    ################# Pre-processing #################
 
     oov = 'unk'
     pad = 'PAD'
@@ -266,44 +235,46 @@ def run_model(train, test, en_emb, es_emb, no_emb):
     ytrain, ytest, label2index, index2label = preprocess_labels(
         train.labels, test.labels)
 
-    index2emb = get_embeddings(tokenizer, embed_en, embed_es)
-    embedding_layer = get_embedding_layer(index2emb, max_len, tokenizer)
+    if en_emb is not None:
+        index2emb = get_embeddings(tokenizer, embed_en, embed_es)
+        embedding_layer = get_embedding_layer(index2emb, max_len, tokenizer)
 
-    # Model Making and Training ####
+    ################# Model Making and Training #################
+
     vocab_size = len(tokenizer.word_index) + 1
     print('vocab size: {}'.format(vocab_size))
 
-    model = make_LSTM(embedding_layer)
-    print(model.summary())
+    if en_emb is not None:
+        model = make_LSTM(embedding_layer)
+        print(model.summary())
 
-    history = model.fit(Xtrain, ytrain, batch_size=512,
-                        epochs=20, verbose=1, validation_split=0.1)
+        history = model.fit(Xtrain, ytrain, batch_size=512,
+                            epochs=20, verbose=1, validation_split=0.1)
 
-    predictions = model.predict(Xtest)
-    pred = np.argmax(predictions, axis=1)
-    Ytest_converted = np.argmax(ytest, axis=1)
+        predictions = model.predict(Xtest)
+        pred = np.argmax(predictions, axis=1)
+        Ytest_converted = np.argmax(ytest, axis=1)
 
-    print(classification_report(Ytest_converted,
-                                pred, target_names=['neg', 'neu', 'pos']))
-    print(confusion_matrix(Ytest_converted, pred))
+        print(classification_report(Ytest_converted,
+                                    pred, target_names=['neg', 'neu', 'pos']))
+        print_cm(cm, ["negative", "neutral", "positive"])
 
-    ########
+    else:
+        model_wE = make_LSTM_with_embeddings(vocab_size, max_len)
+        model_wE.summary()
 
-    model_wE = make_LSTM(vocab=vocab_size, max_len=max_len)
-    model_wE.summary()
+        history_2 = model_wE.fit(
+            Xtrain, ytrain, batch_size=256, epochs=20, verbose=1, validation_split=0.1)
 
-    history_2 = model_wE.fit(
-        Xtrain, ytrain, batch_size=256, epochs=20, verbose=1, validation_split=0.1)
+        predictions = model_wE.predict(Xtest)
+        pred = np.argmax(predictions, axis=1)
+        Ytest_converted = np.argmax(ytest, axis=1)
 
-    predictions = model_wE.predict(Xtest)
-    pred = np.argmax(predictions, axis=1)
-    Ytest_converted = np.argmax(ytest, axis=1)
-
-    print(classification_report(Ytest_converted,
-                                pred, target_names=['neg', 'neu', 'pos']))
-    print(confusion_matrix(Ytest_converted, pred))
+        print(classification_report(Ytest_converted,
+                                    pred, target_names=['neg', 'neu', 'pos']))
+        cm = confusion_matrix(Ytest_converted, pred)
+        print_cm(cm, ["negative", "neutral", "positive"])
 
 
 if __name__ == '__main__':
-
     data_root("./data/")
