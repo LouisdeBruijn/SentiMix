@@ -25,16 +25,14 @@ if __name__ == '__main__':
 
     parser.add_argument('-b', "--baseline",
                         help='show baseline result', action="store_true")
-    parser.add_argument('-s', "--svm", help='show svm result', action="store_true")
+    parser.add_argument(
+        '-s', "--svm", help='show svm result', action="store_true")
 
     parser.add_argument('-en_emb', '--English_embeddings',
                         help="word embeddings for English")
 
     parser.add_argument('-es_emb', '--Spanish_embeddings',
                         help="word embeddings for Spanish")
-
-    parser.add_argument("-no_emb", "--no_embeddings",
-                        help="Skip the embedding loading", action="store_true")
 
     args = parser.parse_args()
 

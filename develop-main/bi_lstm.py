@@ -197,7 +197,7 @@ def run_model(train, test, en_emb, es_emb):
     # data = data_manager.Preprocessor.emoji_to_word(data, info_path)
     # data_trial = data_manager.Preprocessor.emoji_to_word(data_trial, info_path)
 
-    train.scramble()
+    # train.scramble()
 
     # Spanglish 2016
     # data_2016 = Data(spanglish_new, format='json')
