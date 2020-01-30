@@ -273,6 +273,7 @@ def run_model(train, test, en_emb, es_emb):
 
         print(classification_report(Ytest_converted,
                                     pred, target_names=['neg', 'neu', 'pos']))
+        cm = confusion_matrix(Ytest_converted, pred)
         print_cm(cm, ["negative", "neutral", "positive"])
 
 
