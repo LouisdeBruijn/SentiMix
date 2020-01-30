@@ -55,7 +55,7 @@ if __name__ == '__main__':
         run_baseline_tfidf(train, test)
 
     # Neural model
-    print("Runinning Neural model...")
+    print("Running Neural model...")
     run_model(train, test, args.English_embeddings, args.Spanish_embeddings)
 
     # main()

@@ -139,7 +139,7 @@ def get_embedding_layer(index2emb, max_len, tokenizer):
     return embedding_layer
 
 
-def make_LSTM(embed_layer):
+def make_LSTM(embed_layer, max_len):
     print('Building Bi-LSTM with pre-trained embeddings...')
     sequence_input = Input(shape=(max_len,), dtype='int32')
     embedded_sequences = embed_layer(sequence_input)
@@ -216,14 +216,15 @@ def run_model(train, test, en_emb, es_emb):
     """### Check Embedding Coverage"""
 
     # Print the embedding coverage
-    # data = Preprocessor.combine_data(train, test)
-    # word2lang_all = make_lang_dict(data.documents, data.labels)
-    # found, not_found = embed_coverage(word2lang_all, embed_en, embed_es)
-    # all_words = len(word2lang_all)
-    # print("{0} of {1} words were found in 2 embeddings. That is {2:2f} percent".format(len(found), all_words,
-    #                                                                                    (len(found) / all_words * 100)))
-    # print("{0} of {1} words were not found. That is {2:2f} percent".format(len(not_found), all_words,
-    #                                                                        (len(not_found) / all_words * 100)))
+    if en_emb is not None:
+        data = Preprocessor.combine_data(train, test)
+        word2lang_all = make_lang_dict(data.documents, data.labels)
+        found, not_found = embed_coverage(word2lang_all, embed_en, embed_es)
+        all_words = len(word2lang_all)
+        print("{0} of {1} words were found in 2 embeddings. That is {2:2f} percent".format(len(found), all_words,
+                                                                                           (len(found) / all_words * 100)))
+        print("{0} of {1} words were not found. That is {2:2f} percent".format(len(not_found), all_words,
+                                                                               (len(not_found) / all_words * 100)))
 
     ################# Pre-processing #################
 
@@ -246,7 +247,7 @@ def run_model(train, test, en_emb, es_emb):
     print('vocab size: {}'.format(vocab_size))
 
     if en_emb is not None:
-        model = make_LSTM(embedding_layer)
+        model = make_LSTM(embedding_layer, max_len)
         print(model.summary())
 
         history = model.fit(Xtrain, ytrain, batch_size=512,
@@ -258,6 +259,7 @@ def run_model(train, test, en_emb, es_emb):
 
         print(classification_report(Ytest_converted,
                                     pred, target_names=['neg', 'neu', 'pos']))
+        cm = confusion_matrix(Ytest_converted, pred)
         print_cm(cm, ["negative", "neutral", "positive"])
 
     else:
