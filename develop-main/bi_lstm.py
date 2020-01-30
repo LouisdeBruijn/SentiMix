@@ -178,7 +178,7 @@ def make_LSTM(embed_layer=None, vocab=None, max_len=None):
         return model_wE
 
 
-def run_model(train, test, en_emb, es_emb):
+def run_model(train, test, en_emb, es_emb, no_emb):
 
     data_path = "./data/"
 
@@ -233,10 +233,13 @@ def run_model(train, test, en_emb, es_emb):
 
     """### Check Embedding Coverage"""
 
-    print('Load English embeddings..')
-    embed_en = KeyedVectors.load_word2vec_format(en_embed_file, binary=False)
-    print('Load Spanish embeddings..')
-    embed_es = KeyedVectors.load_word2vec_format(es_embed_file, binary=False)
+    if not no_emb:
+        print('Load English embeddings..')
+        embed_en = KeyedVectors.load_word2vec_format(
+            en_embed_file, binary=False)
+        print('Load Spanish embeddings..')
+        embed_es = KeyedVectors.load_word2vec_format(
+            es_embed_file, binary=False)
 
     # print('Load English twitter embeddings..')
     # embed_en = KeyedVectors.load_word2vec_format(twitter_en_embed_file, binary=False)

@@ -34,6 +34,9 @@ if __name__ == '__main__':
     parser.add_argument('-es_emb', '--Spanish_embeddings',
                         help="word embeddings for Spanish")
 
+    parser.add_argument("-no_emb", "--no_embeddings",
+                        help="Skip the embedding loading", action="store_true")
+
     args = parser.parse_args()
 
     if args.train_data == None or args.test_data == None:
