@@ -25,8 +25,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-b', "--baseline",
                         help='show baseline result', action="store_true")
-    parser.add_argument(
-        '-s', "--svm", help='show svm result', action="store_true")
+    parser.add_argument('-s', "--svm", help='show svm result', action="store_true")
 
     parser.add_argument('-en_emb', '--English_embeddings',
                         help="word embeddings for English")
@@ -40,9 +39,9 @@ if __name__ == '__main__':
         print("Data path to training or testing required. See -h for more info.")
         exit()
 
-    if args.English_embeddings == None or args.Spanish_embeddings == None:
-        print("Path to word embeddings required. See -h for more info.")
-        exit()
+    # if args.English_embeddings == None or args.Spanish_embeddings == None:
+    #     print("Path to word embeddings required. See -h for more info.")
+    #     exit()
 
     train = Data(args.train_data, format="conll")
     test = Data(args.test_data, format="conll")
