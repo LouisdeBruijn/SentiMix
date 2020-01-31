@@ -185,30 +185,12 @@ def make_LSTM_with_embeddings(vocab, max_len):
 def run_model(train, test, en_emb, es_emb):
     data_path = "./data/"
 
-    if en_emb is not None:
+    if en_emb is not None and es_emb is not None:
         print('Load English embeddings..')
         embed_en = KeyedVectors.load_word2vec_format(en_emb, binary=False)
         print('Load Spanish embeddings..')
         embed_es = KeyedVectors.load_word2vec_format(es_emb, binary=False)
 
-    # emoji informativity
-    info_path = data_path + 'emoji_informativity.txt'
-
-    # data = data_manager.Preprocessor.emoji_to_word(data, info_path)
-    # data_trial = data_manager.Preprocessor.emoji_to_word(data_trial, info_path)
-
-    # train.scramble()
-
-    # Spanglish 2016
-    # data_2016 = Data(spanglish_new, format='json')
-    # data_2016 = Preprocessor.remove_emoji(data_2016)
-    # data_2016 = Preprocessor.balance_data(data_2016)
-    #
-    # # data = Preprocessor.emoji_to_word(data, info_path)
-    #
-    # train = Preprocessor.combine_data(data_train, data_2016)
-    # train.scramble()
-    # test = data_trial
 
     print(f"Number of training documents: {len(train.documents)}")
     print(f"Number of testing documents: {len(test.documents)}")
@@ -216,7 +198,7 @@ def run_model(train, test, en_emb, es_emb):
     """### Check Embedding Coverage"""
 
     # Print the embedding coverage
-    if en_emb is not None:
+    if en_emb is not None and es_emb is not None:
         data = Preprocessor.combine_data(train, test)
         word2lang_all = make_lang_dict(data.documents, data.labels)
         found, not_found = embed_coverage(word2lang_all, embed_en, embed_es)
@@ -236,7 +218,7 @@ def run_model(train, test, en_emb, es_emb):
     ytrain, ytest, label2index, index2label = preprocess_labels(
         train.labels, test.labels)
 
-    if en_emb is not None:
+    if en_emb is not None and es_emb is not None:
         index2emb = get_embeddings(tokenizer, embed_en, embed_es)
         embedding_layer = get_embedding_layer(index2emb, max_len, tokenizer)
 
@@ -245,7 +227,7 @@ def run_model(train, test, en_emb, es_emb):
     vocab_size = len(tokenizer.word_index) + 1
     print('vocab size: {}'.format(vocab_size))
 
-    if en_emb is not None:
+    if en_emb is not None and es_emb is not None:
         model = make_LSTM(embedding_layer, max_len)
         print(model.summary())
 
