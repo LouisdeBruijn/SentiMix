@@ -77,13 +77,13 @@ def preprocess_docs(train, test, unk, pad):
     return train_pad, test_pad, tok, max_len
 
 
-def preprocess_labels(train, test):
+def preprocess_labels(train_labels, test_labels):
     print('Preprocessing labels..')
     lb = LabelBinarizer()
-    lb.fit(train)
+    lb.fit(train_labels)
 
-    train_cat = lb.transform(train)
-    test_cat = lb.transform(test)
+    train_cat = lb.transform(train_labels)
+    test_cat = lb.transform(test_labels)
 
     label2index = {label: idx for idx, label in enumerate(lb.classes_)}
     index2label = {idx: label for idx, label in enumerate(lb.classes_)}
@@ -250,7 +250,7 @@ def run_model(train, test, en_emb, es_emb):
         model = make_LSTM(embedding_layer, max_len)
         print(model.summary())
 
-        history = model.fit(Xtrain, ytrain, batch_size=512,
+        history = model.fit(Xtrain, ytrain, batch_size=256,
                             epochs=20, verbose=1, validation_split=0.1)
 
         predictions = model.predict(Xtest)
