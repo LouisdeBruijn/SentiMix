@@ -25,7 +25,8 @@ if __name__ == '__main__':
 
     parser.add_argument('-b', "--baseline",
                         help='show baseline result', action="store_true")
-    parser.add_argument('-s', "--svm", help='show svm result', action="store_true")
+    parser.add_argument(
+        '-s', "--svm", help='show svm result', action="store_true")
 
     parser.add_argument('-en_emb', '--English_embeddings',
                         help="word embeddings for English")
