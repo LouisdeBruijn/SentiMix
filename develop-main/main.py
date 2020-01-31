@@ -3,17 +3,6 @@ from baseline import *
 from data.data_manager import *
 
 
-def main(root):
-    # argparse for the arguments
-    # one argument: baseline
-    # other argument: LSTM model
-    # another: use cached model / skip training (cached model should be in /dist)
-
-    run_model(data_root)
-
-    pass
-
-
 if __name__ == '__main__':
 
     import argparse
@@ -21,6 +10,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
 
     parser.add_argument('-tr', '--train_data', help='path to training data')
+    parser.add_argument('-etr', '--extra_train_data',
+                        help="path to additional data (Spanglish 2016 tweets)")
     parser.add_argument('-te', '--test_data', help='path to testing data')
 
     parser.add_argument('-b', "--baseline",
@@ -40,12 +31,12 @@ if __name__ == '__main__':
         print("Data path to training or testing required. See -h for more info.")
         exit()
 
-    # if args.English_embeddings == None or args.Spanish_embeddings == None:
-    #     print("Path to word embeddings required. See -h for more info.")
-    #     exit()
-
     train = Data(args.train_data, format="conll")
     test = Data(args.test_data, format="conll")
+
+    if args.extra_train_data != None:
+        addt = Data(args.extra_train_data, format="json")
+        train = Preprocessor.combine_data(train, addt)
 
     if args.baseline:
         print("Running random guessing baseline...")
@@ -58,5 +49,3 @@ if __name__ == '__main__':
     # Neural model
     print("Runinning Neural model...")
     run_model(train, test, args.English_embeddings, args.Spanish_embeddings)
-
-    # main()
