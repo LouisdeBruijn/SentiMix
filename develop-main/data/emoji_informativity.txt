@@ -1,0 +1,223 @@
+train_conll_spanglish.txt
+emoji|chosen label|nr of occurences in tweets|label distribution
+😂|positive|encanta|869|positive:532 neutral:242 negative:95 
+❤|positive|encanta|404|neutral:79 positive:317 negative:8 
+😍|positive|encanta|370|neutral:92 positive:272 negative:6 
+😁|positive|encanta|153|positive:103 neutral:42 negative:8 
+👌|positive|encanta|142|positive:98 neutral:31 negative:13 
+🔥|positive|encanta|140|neutral:36 positive:99 negative:5 
+😱|positive|encanta|105|negative:2 neutral:28 positive:75 
+☺|positive|encanta|103|neutral:19 positive:80 negative:4 
+👏|positive|encanta|91|neutral:24 positive:64 negative:3 
+🎉|positive|encanta|91|positive:78 neutral:13 
+😘|positive|encanta|89|neutral:16 negative:13 positive:60 
+😝|positive|encanta|83|neutral:28 negative:10 positive:45 
+😎|positive|encanta|82|positive:54 negative:3 neutral:25 
+🙌|positive|encanta|76|neutral:20 positive:51 negative:5 
+💕|positive|encanta|74|positive:55 neutral:16 negative:3 
+😊|positive|encanta|74|positive:62 neutral:10 negative:2 
+♥|positive|encanta|70|neutral:7 positive:61 negative:2 
+🎵|positive|encanta|62|neutral:20 positive:41 negative:1 
+💀|positive|encanta|61|neutral:20 positive:41 
+😜|positive|encanta|60|neutral:19 negative:4 positive:37 
+👍|positive|encanta|57|positive:46 negative:2 neutral:9 
+😋|positive|encanta|57|neutral:13 positive:41 negative:3 
+✌|positive|encanta|54|positive:35 neutral:17 negative:2 
+😏|positive|encanta|52|negative:4 positive:33 neutral:15 
+😡|negative|fucking|50|negative:42 neutral:5 positive:3 
+💃|positive|encanta|49|neutral:11 positive:37 negative:1 
+👗|positive|encanta|49|neutral:17 positive:32 
+💋|positive|encanta|47|neutral:5 positive:41 negative:1 
+💪|positive|encanta|44|neutral:8 positive:33 negative:3 
+💁|positive|encanta|42|neutral:13 negative:4 positive:25 
+☀|positive|encanta|42|neutral:10 positive:32 
+😉|positive|encanta|39|positive:33 neutral:6 
+😳|positive|encanta|37|negative:9 neutral:10 positive:18 
+😌|positive|encanta|36|neutral:5 positive:24 negative:7 
+💯|positive|encanta|35|positive:23 neutral:10 negative:2 
+🍻|positive|encanta|34|positive:22 neutral:10 negative:2 
+😈|positive|encanta|34|neutral:7 negative:7 positive:20 
+👇|neutral|vienes|34|neutral:33 positive:1 
+🙋|positive|encanta|33|neutral:9 positive:23 negative:1 
+👠|positive|encanta|32|positive:21 neutral:11 
+🌸|positive|encanta|31|positive:27 neutral:4 
+😅|positive|encanta|30|positive:16 negative:6 neutral:8 
+🎈|positive|encanta|28|positive:26 neutral:2 
+😃|positive|encanta|27|positive:21 negative:1 neutral:5 
+🙈|positive|encanta|27|positive:17 neutral:9 negative:1 
+✨|positive|encanta|25|neutral:4 positive:20 negative:1 
+💙|positive|encanta|22|positive:16 neutral:3 negative:3 
+🌻|positive|encanta|22|positive:19 neutral:3 
+✋|neutral|vienes|21|negative:6 neutral:11 positive:4 
+🔫|positive|encanta|20|negative:5 positive:11 neutral:4 
+😻|positive|encanta|20|positive:18 neutral:2 
+💛|positive|encanta|18|positive:11 neutral:7 
+😛|positive|encanta|17|neutral:2 positive:12 negative:3 
+🎊|positive|encanta|17|positive:16 neutral:1 
+💜|positive|encanta|17|neutral:6 positive:11 
+💥|positive|encanta|17|negative:1 neutral:4 positive:12 
+😆|positive|encanta|16|positive:11 negative:3 neutral:2 
+😴|positive|encanta|16|negative:5 positive:9 neutral:2 
+🌙|positive|encanta|15|positive:12 neutral:2 negative:1 
+☁|positive|encanta|15|positive:13 neutral:2 
+👊|positive|encanta|14|negative:3 neutral:3 positive:8 
+🎁|positive|encanta|14|positive:11 negative:1 neutral:2 
+🍁|positive|encanta|14|positive:12 negative:1 neutral:1 
+😄|positive|encanta|13|neutral:3 positive:10 
+💘|positive|encanta|13|negative:3 positive:8 neutral:2 
+😹|positive|encanta|13|negative:3 positive:7 neutral:3 
+😕|negative|fucking|12|negative:8 positive:3 neutral:1 
+💄|positive|encanta|12|neutral:4 positive:8 
+🤗|positive|encanta|12|positive:12 
+⭐|positive|encanta|12|positive:8 neutral:4 
+🌷|positive|encanta|12|positive:10 neutral:2 
+🎂|positive|encanta|12|positive:11 neutral:1 
+🍺|positive|encanta|11|positive:7 neutral:4 
+🍹|positive|encanta|11|neutral:2 positive:9 
+💓|positive|encanta|11|positive:7 neutral:4 
+🌼|positive|encanta|11|positive:10 neutral:1 
+🙂|positive|encanta|11|positive:10 neutral:1 
+🙆|positive|encanta|11|positive:10 neutral:1 
+💖|positive|encanta|11|positive:10 negative:1 
+✈|positive|encanta|10|neutral:1 positive:9 
+😠|negative|fucking|10|positive:1 negative:9 
+🍃|positive|encanta|10|positive:8 neutral:2 
+😟|neutral|vienes|9|neutral:5 negative:3 positive:1 
+🎮|positive|encanta|9|positive:6 neutral:3 
+💫|positive|encanta|9|neutral:3 positive:6 
+💰|neutral|vienes|8|positive:3 neutral:5 
+😪|negative|fucking|8|negative:7 positive:1 
+😤|negative|fucking|8|negative:5 positive:1 neutral:2 
+🔴|positive|encanta|8|neutral:1 positive:7 
+🌞|positive|encanta|8|positive:5 neutral:3 
+🔝|positive|encanta|8|positive:7 neutral:1 
+💨|positive|encanta|7|positive:6 negative:1 
+👖|positive|encanta|7|neutral:2 positive:5 
+👛|positive|encanta|7|neutral:1 positive:6 
+😀|positive|encanta|7|positive:7 
+❗|neutral|vienes|7|neutral:6 positive:1 
+🎧|positive|encanta|6|positive:6 
+😨|positive|encanta|6|negative:1 positive:5 
+😗|positive|encanta|6|positive:6 
+👿|negative|fucking|6|negative:6 
+😚|positive|encanta|6|positive:6 
+🐶|negative|fucking|6|negative:4 neutral:2 
+👔|positive|encanta|6|neutral:2 positive:4 
+🎀|positive|encanta|6|positive:5 neutral:1 
+✖|neutral|vienes|6|neutral:6 
+👉|positive|encanta|6|positive:6 
+🌺|negative|fucking|6|negative:4 neutral:2 
+☝|positive|encanta|6|neutral:2 positive:4 
+🍀|positive|encanta|6|positive:6 
+🙀|positive|encanta|6|positive:5 neutral:1 
+☎|positive|encanta|6|positive:6 
+👶|positive|encanta|6|neutral:1 positive:5 
+💗|positive|encanta|6|positive:4 neutral:2 
+🌲|positive|encanta|6|positive:6 
+⛄|positive|encanta|5|positive:5 
+👋|positive|encanta|5|negative:1 positive:4 
+📸|neutral|vienes|5|neutral:5 
+👭|positive|encanta|5|neutral:1 positive:4 
+👜|positive|encanta|5|neutral:1 positive:4 
+🌚|positive|encanta|5|neutral:1 positive:4 
+👯|positive|encanta|5|positive:5 
+🙍|neutral|vienes|5|neutral:4 positive:1 
+❣|positive|encanta|5|positive:5 
+💌|positive|encanta|5|neutral:1 positive:4 
+👾|positive|encanta|5|positive:5 
+👙|positive|encanta|5|positive:4 neutral:1 
+☹|negative|fucking|4|negative:4 
+✅|neutral|vienes|4|neutral:3 positive:1 
+📍|positive|encanta|4|neutral:1 positive:3 
+🐥|positive|encanta|4|neutral:1 positive:3 
+🐸|negative|fucking|4|negative:2 neutral:1 positive:1 
+🦄|positive|encanta|4|positive:4 
+👻|positive|encanta|4|positive:3 neutral:1 
+🐤|positive|encanta|4|positive:3 neutral:1 
+🌟|positive|encanta|4|positive:3 neutral:1 
+⚠|neutral|vienes|4|neutral:4 
+🍇|positive|encanta|4|positive:3 neutral:1 
+🌤|positive|encanta|4|positive:4 
+®|positive|encanta|4|positive:4 
+🍡|neutral|vienes|4|positive:1 neutral:3 
+💎|positive|encanta|4|positive:4 
+⛵|neutral|vienes|4|neutral:3 positive:1 
+🛍|positive|encanta|4|positive:3 neutral:1 
+🖕|negative|fucking|4|negative:4 
+🌿|positive|encanta|4|positive:4 
+🌵|positive|encanta|4|positive:4 
+🍂|positive|encanta|4|neutral:1 positive:3 
+👰|positive|encanta|4|positive:4 
+🐀|negative|fucking|4|negative:4 
+👎|negative|fucking|3|negative:3 
+🎋|positive|encanta|3|positive:3 
+🙎|negative|fucking|3|negative:3 
+😦|neutral|vienes|3|neutral:3 
+⚽|positive|encanta|3|positive:3 
+🔪|positive|encanta|3|positive:3 
+🎥|positive|encanta|3|neutral:1 positive:2 
+🍧|positive|encanta|3|neutral:1 positive:2 
+🐱|neutral|vienes|3|neutral:3 
+🔙|neutral|vienes|3|neutral:2 negative:1 
+👚|neutral|vienes|3|neutral:2 positive:1 
+🎓|positive|encanta|3|positive:3 
+💞|positive|encanta|3|positive:3 
+💐|positive|encanta|3|positive:3 
+🌎|positive|encanta|3|positive:3 
+🏆|positive|encanta|3|positive:3 
+🔆|positive|encanta|3|neutral:1 positive:2 
+🍦|positive|encanta|3|neutral:1 positive:2 
+🍒|positive|encanta|3|positive:2 neutral:1 
+😽|positive|encanta|3|positive:3 
+🔺|neutral|vienes|3|neutral:3 
+🌏|positive|encanta|3|positive:3 
+🐰|positive|encanta|3|positive:3 
+🍬|neutral|vienes|3|neutral:3 
+💍|positive|encanta|3|positive:3 
+🌠|positive|encanta|3|positive:2 neutral:1 
+😶|positive|encanta|3|positive:3 
+⌛|positive|encanta|3|positive:3 
+🐝|positive|encanta|3|positive:3 
+👐|positive|encanta|2|positive:2 
+💴|positive|encanta|2|positive:2 
+💳|positive|encanta|2|positive:2 
+💸|positive|encanta|2|positive:2 
+💊|positive|encanta|2|positive:2 
+🏃|negative|fucking|2|negative:2 
+🐣|positive|encanta|2|positive:2 
+🐳|positive|encanta|2|positive:2 
+⚪|positive|encanta|2|positive:2 
+🔵|positive|encanta|2|positive:2 
+🚌|positive|encanta|2|positive:2 
+🎾|positive|encanta|2|positive:2 
+📷|positive|encanta|2|positive:2 
+🚢|positive|encanta|2|positive:2 
+👕|positive|encanta|2|positive:2 
+🎃|positive|encanta|2|positive:2 
+▶|positive|encanta|2|positive:2 
+🐟|neutral|vienes|2|neutral:2 
+📢|negative|fucking|2|negative:2 
+🎨|positive|encanta|2|positive:2 
+🌀|neutral|vienes|2|neutral:2 
+🙉|positive|encanta|2|positive:2 
+⏰|positive|encanta|2|positive:2 
+🔮|neutral|vienes|2|neutral:2 
+⚓|positive|encanta|2|positive:2 
+📚|neutral|vienes|2|neutral:2 
+📨|positive|encanta|2|positive:2 
+🍴|positive|encanta|2|positive:2 
+⬇|positive|encanta|2|positive:2 
+🎼|positive|encanta|2|positive:2 
+✳|positive|encanta|2|positive:2 
+🌶|positive|encanta|2|positive:2 
+🌍|positive|encanta|2|positive:2 
+🏊|positive|encanta|2|positive:2 
+🐧|positive|encanta|2|positive:2 
+🍭|positive|encanta|2|positive:2 
+🎩|positive|encanta|2|positive:2 
+👫|positive|encanta|2|positive:2 
+⛅|positive|encanta|2|positive:2 
+✏|positive|encanta|2|positive:2 
+🔅|positive|encanta|2|positive:2 
+☢|neutral|vienes|2|neutral:2 
+🖖|neutral|vienes|2|neutral:2 
