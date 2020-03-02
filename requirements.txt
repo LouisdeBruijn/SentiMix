@@ -70,7 +70,7 @@ PAM==0.4.2
 pandas==0.25.3
 pathspec==0.7.0
 pbr==5.4.4
-Pillow==5.1.0
+Pillow==6.2.0
 plotly==4.5.0
 protobuf==3.11.2
 pyasn1==0.4.2
